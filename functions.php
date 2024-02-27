@@ -28,9 +28,9 @@ function random_num($length)
 {
 
 	$text = "";
-	if($length < 5)
+	if($length < 4)
 	{
-		$length = 5;
+		$length = 4;
 	}
 
 	$len = rand(4,$length);
@@ -38,7 +38,7 @@ function random_num($length)
 	for ($i=0; $i < $len; $i++) { 
 		# code...
 
-		$text .= rand(0,5);
+		$text .= rand(0,4);
 	}
 
 	return $text;
