@@ -64,8 +64,7 @@ $user_data = check_login($con);
         <p><strong>Market Cap:</strong> $<span id="marketCap">500.32B</span></p>
         <p><strong>Bitcoins Left to Be Mined:</strong> <span id="bitcoinsLeftToMine">680756.255</span></p>
         <!-- Stop Mining button -->
-        <button class="btn btn-success btn-block mt-3" onclick="confirmStopMining()">Stop Mining</button>
-    </div>
+        <button id="stopMiningBtn">Stop Mining</button>    </div>
 </div>
 
 
@@ -74,7 +73,8 @@ $user_data = check_login($con);
           <div id="miningSection" class="text-center center-container">
             <img src="./bitcoin.webp" class="img-fluid" alt="bitcoin logo" width="150px">
             <div class="btn-container">
-              <button class="btn btn-primary custom-primary btn-lg btn-block">Start Mining</button>
+            <button id="startMiningBtn">Start Mining</button>
+
             </div>
             <p id="miningStatus" class="mt-3 lead" style="color:black">Mining Status: Idle</p>
           </div>
@@ -121,82 +121,42 @@ $user_data = check_login($con);
 
 
 
-<!-- Add this script section at the end of your HTML body -->
 <script>
+      $(document).ready(function() {
+        $("#startMiningBtn").click(function() {
+            // Assuming you have a user ID available (replace with actual user ID)
+            var userId = 1;
 
+            $.ajax({
+                url: "test.php",
+                method: "POST",
+                data: { userId: userId },
+                success: function(response) {
+                    $("#miningResult").text(response);
+                    $("#startMiningBtn").hide();
+                    $("#stopMiningBtn").show();
 
-    function stopMining() {
-        // Add logic to stop mining here
-        alert("Mining stopped!");
-   
-    }
+                    // After 8 hours, show the timestamp again
+                    setTimeout(function() {
+                        $("#miningResult").text("Mining started at: " + response);
+                        $("#startMiningBtn").show();
+                        $("#stopMiningBtn").hide();
+                    }, 8 * 60 * 60 * 1000); // 8 hours in milliseconds
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error starting mining: " + error);
+                }
+            });
+        });
 
-  document.addEventListener("DOMContentLoaded", function () {
-    // Function to start mining with auto rate
-    function startMining() {
-      var miningRecordsData = JSON.parse(localStorage.getItem("miningRecords")) || [];
-
-      var miningInterval = setInterval(function () {
-        // Simulate mining rate (adjust as needed)
-        var miningRate = 0.07;
-        var currentTime = new Date().toISOString().replace("T", " ").substr(0, 19);
-        var minedAmount = miningRate * miningRecordsData.length;
-        miningRecordsData.push({ id: miningRecordsData.length + 1, time: currentTime, amount: minedAmount });
-
-        // Store mining records in localStorage
-        localStorage.setItem("miningRecords", JSON.stringify(miningRecordsData));
-
-        // Display mining records dynamically
-        displayMiningRecords(miningRecordsData);
-      }, 1000); // Update every second
-
-      // Attach the mining interval to stop it later
-      document.miningInterval = miningInterval;
-    }
-
-    // Function to stop mining
-    function stopMining() {
-      clearInterval(document.miningInterval);
-      alert("Mining stopped!");
-    }
-
-    // Display mining records dynamically
-    function displayMiningRecords(records) {
-      var miningRecordsList = document.getElementById("miningRecordsList");
-
-      // Clear existing records
-      miningRecordsList.innerHTML = "";
-
-      // Iterate through mining records data and create table rows
-      for (var i = 0; i < records.length; i++) {
-        var record = records[i];
-
-        var row = document.createElement("tr");
-        row.innerHTML = "<td>" + record.id + "</td>" +
-          "<td>" + record.time + "</td>" +
-          "<td>" + record.amount.toFixed(4) + "</td>";
-
-        miningRecordsList.appendChild(row);
-      }
-    }
-
-    // Attach click event listener to the Start Mining button
-    var startMiningBtn = document.querySelector(".custom-primary");
-    startMiningBtn.addEventListener("click", function () {
-      startMining();
+        $("#stopMiningBtn").click(function() {
+            // Handle stopping mining (you might want to implement this part)
+            $("#miningResult").text("Mining stopped.");
+            $("#startMiningBtn").show();
+            $("#stopMiningBtn").hide();
+        });
     });
-
-    // Attach click event listener to the Stop Mining button
-    var stopMiningBtn = document.querySelector(".btn-success");
-    stopMiningBtn.addEventListener("click", function () {
-      stopMining();
-    });
-
-    // Load and display mining records on page load
-    var storedMiningRecords = JSON.parse(localStorage.getItem("miningRecords")) || [];
-    displayMiningRecords(storedMiningRecords);
-  });
-</script>
+    </script>
 
 
 
