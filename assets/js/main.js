@@ -17,13 +17,10 @@
    * Easy event listener function
    */
   const on = (type, el, listener, all = false) => {
-    let selectEl = select(el, all)
-    if (selectEl) {
-      if (all) {
-        selectEl.forEach(e => e.addEventListener(type, listener))
-      } else {
-        selectEl.addEventListener(type, listener)
-      }
+    if (all) {
+      select(el, all).forEach(e => e.addEventListener(type, listener))
+    } else {
+      select(el, all).addEventListener(type, listener)
     }
   }
 
@@ -60,6 +57,10 @@
   const scrollto = (el) => {
     let header = select('#header')
     let offset = header.offsetHeight
+
+    if (!header.classList.contains('header-scrolled')) {
+      offset -= 10
+    }
 
     let elementPos = select(el).offsetTop
     window.scrollTo({
@@ -149,16 +150,6 @@
   });
 
   /**
-   * Preloader
-   */
-  let preloader = select('#preloader');
-  if (preloader) {
-    window.addEventListener('load', () => {
-      preloader.remove()
-    });
-  }
-
-  /**
    * Clients Slider
    */
   new Swiper('.clients-slider', {
@@ -201,7 +192,8 @@
     let portfolioContainer = select('.portfolio-container');
     if (portfolioContainer) {
       let portfolioIsotope = new Isotope(portfolioContainer, {
-        itemSelector: '.portfolio-item'
+        itemSelector: '.portfolio-item',
+        layoutMode: 'fitRows'
       });
 
       let portfolioFilters = select('#portfolio-flters li', true);
@@ -216,9 +208,7 @@
         portfolioIsotope.arrange({
           filter: this.getAttribute('data-filter')
         });
-        portfolioIsotope.on('arrangeComplete', function() {
-          AOS.refresh()
-        });
+        aos_init();
       }, true);
     }
 
@@ -228,7 +218,7 @@
    * Initiate portfolio lightbox 
    */
   const portfolioLightbox = GLightbox({
-    selector: '.portfolio-lightbox'
+    selector: '.portfokio-lightbox'
   });
 
   /**
@@ -236,7 +226,6 @@
    */
   new Swiper('.portfolio-details-slider', {
     speed: 400,
-    loop: true,
     autoplay: {
       delay: 5000,
       disableOnInteraction: false
@@ -263,19 +252,32 @@
       el: '.swiper-pagination',
       type: 'bullets',
       clickable: true
+    },
+    breakpoints: {
+      320: {
+        slidesPerView: 1,
+        spaceBetween: 40
+      },
+
+      1200: {
+        slidesPerView: 3,
+      }
     }
   });
 
   /**
    * Animation on scroll
    */
-  window.addEventListener('load', () => {
+  function aos_init() {
     AOS.init({
       duration: 1000,
       easing: "ease-in-out",
       once: true,
       mirror: false
     });
+  }
+  window.addEventListener('load', () => {
+    aos_init();
   });
 
   /**
@@ -283,4 +285,4 @@
    */
   new PureCounter();
 
-})()
+})();
