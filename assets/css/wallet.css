@@ -1,0 +1,85 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(45deg, #3498db, #8e44ad);
+    color: #ffffff;
+}
+
+.container {
+    margin-top: 50px;
+}
+
+.card {
+    border: none;
+    border-radius: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    background: #ffffff;
+    overflow: hidden;
+}
+
+.card-title {
+    color: #333333;
+}
+
+.balance-container,
+.history-container,
+.send-receive-form {
+    padding: 20px;
+}
+
+.balance {
+    font-size: 24px;
+    font-weight: bold;
+    color: #2ecc71;
+}
+
+.btn-primary,
+.btn-success,
+.btn-info {
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-primary {
+    background: #2ecc71;
+    color: #ffffff;
+}
+
+.btn-success {
+    background: #3498db;
+    color: #ffffff;
+}
+
+.btn-info {
+    background: #007BFF;
+    color: #ffffff;
+}
+
+.btn-primary:hover,
+.btn-success:hover,
+.btn-info:hover {
+    filter: brightness(90%);
+}
+
+.list-group-item {
+    border: none;
+    padding: 15px;
+    font-size: 14px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.list-group-item:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.send-receive-form {
+    button {
+        margin-top: 10px;
+        margin-right: 10px;
+    }
+}
