@@ -1,7 +1,8 @@
 <?php
-include("config/conn.php");
+include("../config/conn.php");
 
-$logMessage = "START CRON TIME:" . date('Y-m-d H:is');
+date_default_timezone_set("Asia/Kuala_Lumpur");
+$logMessage = "\nSTART CRON TIME:" . date('Y-m-d H:is');
 
 #user
 $user_query = "SELECT * FROM users;";
@@ -21,43 +22,85 @@ if(mysqli_num_rows($user_result) <= 0) {
 
 $user_data = mysqli_fetch_assoc($user_result);
 
+if($user_data) {
+	$userInfo = array();
+	do {
+		$user = array(
+					'user_id' => $user_data['user_id'],
+					'user_name' => $user_data['user_name'],
+					'acc_balance' => $user_data['acc_balance'],
+					'mine_amount' => $user_data['mine_amount'],
+					'latest_mining_time' => $user_data['latest_mining_time'],
+				);
+		array_push($userInfo, $user);
+	} while($user_data = mysqli_fetch_assoc($user_result));
+}
+
 
 #vip
 $vip_query = "SELECT * FROM vip_levels;";
-$vip_result = mysqli_query($con, $vip_query);
+$vip_query_result = mysqli_query($con, $vip_query);
 
-if(!vip_result) {
+if(!$vip_query_result) {
 	$message = "Error in VIP query: " . mysqli_error($con);
 	$logMessage .= "\n" . $message;
 	die($message);
 }
 
-if(mysqli_num_rows($vip_result) <= 0) {
+if(mysqli_num_rows($vip_query_result) <= 0) {
 	$message = "No VIP result found";
 	$logMessage .= "\n" . $message;
 	die($message);
 }
 
-$vip_data = mysqli_fetch_assoc($vip_result);
+$vip_data = mysqli_fetch_assoc($vip_query_result);
 
-foreach($vip_data as $vip) {
-	$vipInfo = array(
-		$vip['amount'] => array(
-			'rates' => $vip['rates'],
-			'hour' => $vip['hour'],
-		),
-	);
+if($vip_data) {
+	$vipInfo = array();
+	do {
+		$vip = array(
+					'amount' => $vip_data['amount'],
+					'rates' => $vip_data['rates'],
+					'hour' => $vip_data['hour'],
+				);
+		array_push($vipInfo, $vip);
+	} while($vip_data = mysqli_fetch_assoc($vip_query_result));
 }
 
+#mining amount
+$mining_query = "SELECT * FROM mining;";
+$mining_result = mysqli_query($con, $mining_query);
+
+if(!$mining_result) {
+	$message = "Error in mining query: " . mysqli_error($con);
+	$logMessage .= "\n" . $message;
+	die($message);
+}
+
+if(mysqli_num_rows($mining_result) <= 0) {
+	$message = "No mining result found";
+	$logMessage .= "\n" . $message;
+	die($message);
+}
+
+$mining_data = mysqli_fetch_assoc($mining_result);
+
+if($mining_data) {
+	$mining_balance = $mining_data['amount'];
+}
+
+#print_r($userInfo);
+#print_r($vipInfo);
+#echo date('Y-m-d H:i:s', strtotime("now"));
 
 #check each user vip level & mining
 $user_update_datas = $mining_insert_datas = array();
-foreach($user_data as $user) {
+foreach($userInfo as $user) {
 	$acc_balance = $user['acc_balance'];
 	
 	#if not entitle vip level, continue
-	foreach($vipInfo as $vip_amount => $vip_data) {
-		if($acc_balance >= $vip_amount) {
+	foreach($vipInfo as $vip_data) {
+		if($acc_balance >= $vip_data['amount']) {
 			$rates = $vip_data['rates'];
 			$hour = $vip_data['hour'];
 		}
@@ -68,11 +111,13 @@ foreach($user_data as $user) {
 	}
 	
 	#calculation for mining time
-	$latest_mining_time  = $user['latest_mining_time '];
+	$latest_mining_time  = $user['latest_mining_time'];
 	$update_mining_time = strtotime($latest_mining_time  . " +" . $hour . " hour");
 	$update_date = date('Y-m-d H:i:s', $update_mining_time + 1);
 	$now = strtotime("now");
 	$date_now = date('Y-m-d H:i:s', $now);
+	
+	#echo $update_date;
 	
 	#if not yet the update mining time, continue
 	if($now < $update_mining_time) {
@@ -81,6 +126,10 @@ foreach($user_data as $user) {
 	
 	#calculation for mining amount
 	$mining_amount = sprintf('%.2f', ($mining_balance * $rates));
+	
+	#echo $mining_balance;
+	#echo $rates;
+	#echo $mining_amount;
 	
 	#put datas into $user_update_datas to update later
 	$user_update_data = array(
@@ -92,7 +141,7 @@ foreach($user_data as $user) {
 	
 	#put datas into $mining_insert_data to insert later
 	$mining_insert_data = array(
-							'user_id' => $user['id'],
+							'user_id' => $user['user_id'],
 							'start_time' => $latest_mining_time ,
 							'end_time' => $update_date,
 							'mining_amount' => $mining_amount,
@@ -107,7 +156,7 @@ foreach($user_data as $user) {
 if(!empty($user_update_datas)) {
 	$logMessage .= "\nStart update user data";
 	
-	$user_update_query = "UPDATE users SET(mine_amount = ?, latest_mining_time  = ?) WHERE user_id = ?;";
+	$user_update_query = "UPDATE users SET mine_amount = ?, latest_mining_time  = ? WHERE user_id = ?;";
 
 	$user_update_statement = mysqli_prepare($con, $user_update_query);
 	
@@ -156,7 +205,7 @@ $logMessage .= "\nEND CRON TIME:" . date('Y-m-d H:is');
 
 
 #save log
-$logFilePath = '/cron_log_file.txt';
+$logFilePath = '/var/cron-log/update_mining_amount.log';
 
 $logFile = fopen($logFilePath, 'a');
 
