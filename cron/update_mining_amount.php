@@ -1,5 +1,5 @@
 <?php
-include("../config/conn.php");
+include("/opt/project2/config/conn.php");
 
 date_default_timezone_set("Asia/Kuala_Lumpur");
 $logMessage = "\nSTART CRON TIME:" . date('Y-m-d H:is');

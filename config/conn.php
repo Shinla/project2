@@ -29,15 +29,11 @@ if ($application_env === 'staging') {
 }
 
 // Connect to the database
-$con = mysqli_connect($dbhost, $dbuser, $dbpass, $dbname);
+$con = mysqli_connect($dbhost_staging, $dbuser_staging, $dbpass_staging, $dbname_staging);
 
 // Check connection
 if (!$con) {
     die("Connection failed: " . mysqli_connect_error());
-} else {
-    echo "Connected successfully";
 }
 
-// Close the connection
-mysqli_close($con);
 ?>
