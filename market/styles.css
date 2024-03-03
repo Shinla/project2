@@ -1,0 +1,79 @@
+body.trend-only {
+  background-color: var(--eerie-black-2);
+  color: var(--cadet-blue-crayola);
+  font-size: 1.6rem;
+  line-height: 1.4;
+  overflow: hidden;
+}
+
+.section.trend {
+  padding: 40px 0;
+  text-align: center;
+}
+
+.container {
+  padding-inline: 15px;
+}
+
+.trend-tab {
+  background-color: var(--raisin-black);
+  border-radius: var(--radius-24);
+  padding: 20px;
+  box-shadow: var(--shadow-2);
+}
+
+.tab-content {
+  display: grid;
+  gap: 20px;
+}
+
+.trend-card {
+  padding: 20px;
+  border-radius: var(--radius-12);
+  transition: var(--transition-1);
+}
+
+.trend-card:is(:hover, .active) {
+  background-color: var(--gunmetal_50);
+  box-shadow: var(--shadow-3);
+}
+
+.card-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.card-title {
+  color: var(--white);
+  font-size: var(--fs-7);
+  font-weight: var(--fw-700);
+  transition: var(--transition-1);
+}
+
+.card-title:is(:hover, :focus) {
+  color: var(--blue-crayola);
+}
+
+.card-title .span {
+  color: var(--cadet-blue-crayola);
+  display: inline-block;
+  margin-inline-start: 5px;
+}
+
+.card-value {
+  color: var(--white);
+  font-size: var(--fs-3);
+  font-weight: var(--fw-700);
+  margin-block: 10px;
+}
+
+.card-analytics {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.current-price {
+  font-size: var(--fs-7);
+}

@@ -233,7 +233,7 @@ $user_data = check_login($con);
   <script>
     $(document).ready(function() {
       $("#startMiningBtn").click(function() {
-          // Assuming you have a user ID available (replace with actual user ID)
+          // Assuming you have a user ID available (replace with actual user ID)  
           var userId = 1;
 
           $.ajax({

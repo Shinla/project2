@@ -1,0 +1,16 @@
+
+/* Add your custom styles here */
+#startMiningBtn,
+#stopMiningBtn {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#miningPackage {
+    padding: 8px;
+    border-radius: 5px;
+}

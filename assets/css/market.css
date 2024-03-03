@@ -1,0 +1,276 @@
+/* General styles */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Section styles */
+.section {
+  padding: 40px 0;
+  background-color: #f5f5f5;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Title styles */
+.title-wrapper {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.h2.section-title {
+  font-size: 36px;
+  color: #333;
+}
+
+/* Trend section styles */
+.trend-title {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.box-container {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.trend-card {
+  width: calc(25% - 20px);
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out;
+  margin-bottom: 20px;
+}
+
+.trend-card:hover {
+  transform: translateY(-5px);
+}
+
+.card-title-wrapper {
+  margin-bottom: 10px;
+}
+
+.card-title {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+}
+
+.card-title:hover {
+  text-decoration: underline;
+}
+
+.card-value {
+  display: block;
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 10px;
+}
+
+.card-analytics {
+  display: flex;
+  align-items: center;
+}
+
+.current-price {
+  font-size: 16px;
+  font-weight: bold;
+  margin-right: 10px;
+  color: #333;
+}
+
+.badge {
+  padding: 8px 12px;
+  border-radius: 5px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.green {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.red {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+/* Market section styles */
+.market {
+  background-color: #f5f5f5;
+  padding: 20px 0;
+}
+
+.market-tab {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.tab-nav {
+  list-style: none;
+  display: flex;
+}
+
+.tab-btn {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.tab-btn.active {
+  background-color: #333;
+}
+
+.market-table {
+  width: 100%;
+  border-collapse: collapse;
+  overflow-x: auto; /* Enable horizontal scrolling on small screens */
+}
+
+.table-head,
+.table-body {
+  background-color: #fff;
+}
+
+.table-row {
+  border-bottom: 1px solid #ddd;
+}
+
+.table-heading,
+.table-data {
+  padding: 15px;
+  text-align: left;
+}
+
+.table-heading {
+  font-weight: bold;
+  color: #333;
+}
+
+.table-data {
+  color: #555;
+}
+
+.rank {
+  color: #4CAF50;
+}
+
+.add-to-fav {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.icon-outline,
+.icon-fill {
+  font-size: 24px;
+  color: #ccc;
+}
+
+.icon-fill {
+  display: none;
+}
+
+.add-to-fav:hover .icon-outline {
+  display: none;
+}
+
+.add-to-fav:hover .icon-fill {
+  display: inline-block;
+  color: #fddb3a;
+}
+
+.wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.img {
+  margin-right: 10px;
+}
+
+.coin-name {
+  font-size: 16px;
+  color: #333;
+}
+
+.coin-name:hover {
+  text-decoration: underline;
+}
+
+.last-update.green {
+  color: #4CAF50;
+}
+
+.market-cap {
+  font-weight: bold;
+}
+
+.chart {
+  display: block;
+  margin: 0 auto;
+}
+
+.btn.btn-outline {
+  padding: 10px 20px;
+  border: 1px solid #4CAF50;
+  color: #4CAF50;
+  text-decoration: none;
+  border-radius: 5px;
+  display: inline-block;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.btn.btn-outline:hover {
+  background-color: #4CAF50;
+  color: #fff;
+}
+
+/* Responsive styles */
+@media screen and (max-width: 768px) {
+  .trend-card {
+    width: calc(50% - 20px);
+  }
+}
+
+@media screen and (max-width: 576px) {
+  .trend-card {
+    width: calc(100% - 20px);
+  }
+
+  .market-table {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .table-heading,
+  .table-data {
+    white-space: nowrap;
+  }
+
+  .tab-btn,
+  .btn-mine {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
