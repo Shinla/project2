@@ -32,7 +32,7 @@ if ($result) {
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Bio MP | Bitcoin</title>
+    <title>Bio MP</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -225,12 +225,12 @@ if ($result) {
 
                     <div class="col-lg-4">
                         <div class="portfolio-info">
-                            <h3>Bitcoin Information</h3>
+                            <h3>Ethereum Information</h3>
                             <ul>
-                                <li><strong>Last Price</strong>: $61,849.97</li>
-                                <li><strong>24 Hours Change</strong>: +0.41%</li>
-                                <li><strong>Market Cap</strong>: $1.22T</li>
-                                <li><strong>Supply</strong>: 14.7M</li><br>
+                                <li><strong>Last Price</strong>: $3,436.88</li>
+                                <li><strong>24 Hours Change</strong>:+0.50%</li>
+                                <li><strong>Market Cap</strong>: $412.89B</li>
+                                <li><strong>Supply</strong>: 60.07M</li><br>
                                 <button id="stopMiningBtn" class="btn-buy">Stop Mining</button>
                             </ul>
                         </div>
@@ -451,16 +451,21 @@ if ($result) {
             // Save mining data to local storage
             saveMiningData(miningData);
 
-            // Update Bitcoin Information
-            document.querySelector('.portfolio-info h3').textContent = 'Bitcoin Information';
-            var bitcoinInfoList = document.querySelectorAll('.portfolio-info ul li');
-            bitcoinInfoList[0].innerHTML = `<strong>Last Price</strong>: $61,849.97`;
-            bitcoinInfoList[1].innerHTML = `<strong>24 Hours Change</strong>: +0.41%`;
-            bitcoinInfoList[2].innerHTML = `<strong>Market Cap</strong>: $1.22T`;
-            bitcoinInfoList[3].innerHTML = `<strong>Supply</strong>: 14.7M`;
+            // Update Ethereum Information
+            document.querySelector('.portfolio-info h3').textContent = 'Ethereum Information';
+            var ethereumInfoList = document.querySelectorAll('.portfolio-info ul li');
+            ethereumInfoList[0].innerHTML =
+            `<strong>Last Price</strong>: $2,564.37`; // Change Ethereum information
+            ethereumInfoList[1].innerHTML =
+            `<strong>24 Hours Change</strong>: -0.85%`; // Change Ethereum information
+            ethereumInfoList[2].innerHTML = `<strong>Market Cap</strong>: $300B`; // Change Ethereum information
+            ethereumInfoList[3].innerHTML = `<strong>Supply</strong>: 120M`; // Change Ethereum information
 
             // Display success message
             displaySuccessMessage('Mining successfully started!');
+
+            // Display additional information
+            displaySuccessMessage('Ethereum Information updated!');
 
             // Start the auto-stop interval (e.g., stop mining after 5 minutes)
             miningInterval = setInterval(function() {
@@ -516,7 +521,21 @@ if ($result) {
             localStorage.setItem('miningData', JSON.stringify(existingMiningData));
         }
 
+        // Function to load mining data from local storage and populate the table
+        function loadMiningData() {
+            var table = document.querySelector('#portfolio-details table');
+            var existingMiningData = JSON.parse(localStorage.getItem('miningData')) || [];
 
+            // Populate the table with existing mining data
+            existingMiningData.forEach(function(data) {
+                var newRow = table.insertRow(table.rows.length);
+                newRow.innerHTML =
+                    `<td>${data.id}</td><td>${data.amount}</td><td>${data.rate}</td><td>${data.startTime}</td><td>${data.endTime}</td>`;
+            });
+        }
+
+        // Load existing mining data when the page is loaded
+        loadMiningData();
     });
     </script>
 

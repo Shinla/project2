@@ -16,6 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         $email = $_POST['email'];
 
         if (!empty($user_name) && !empty($password) && !empty($email)) {
+            // Omitting user_id from the insert query to allow auto-increment
             $query = "INSERT INTO users (user_name, email, password) VALUES ('$user_name', '$email', '$password')";
 
             if (mysqli_query($con, $query)) {
@@ -28,12 +29,13 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         }
     } elseif (isset($_POST['login'])) {
         // Login Logic
-        $query = "SELECT * FROM users WHERE user_name = '$user_name' LIMIT 1";
+        $query = "SELECT * FROM users WHERE user_name = '$user_name'";
         $result = mysqli_query($con, $query);
 
         if ($result && mysqli_num_rows($result) > 0) {
             $user_data = mysqli_fetch_assoc($result);
 
+            // Verify password
             if ($user_data['password'] === $password) {
                 $_SESSION['user_id'] = $user_data['user_id'];
                 header("Location: index.php");
@@ -55,9 +57,11 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/login.css">
+    <link rel="stylesheet" href="./assets/css/login.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
     <title>Welcome to Bio MP</title>
+
+    
 </head>
 
 <body>
@@ -80,14 +84,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <input type="password" placeholder="Password" name="password">
                 <!-- Use Bootstrap classes for styling -->
                 <div class="form-group checkbox-container">
-                    <div class="form-check">
-                        <input type="checkbox" class="form-check-input" id="termsCheckbox" name="termsCheckbox"
-                            required> <span data-translation-key="lo8"></span>
-                        <label class="form-check-label" for="termsCheckbox">
-                            <a href="tnc.php" data-translation-key="foo2">Terms and Conditions</a>
-                        </label>
+                    <div class="form-row">
+                        <div class="col-12">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="termsCheckbox" name="termsCheckbox"
+                                    required>
+                                <label class="form-check-label" for="termsCheckbox">
+                                    I agree to the <a href="tnc.php">Terms and Conditions</a>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
                 <button name="register" data-translation-key="log11" class="btn btn-primary">Sign Up</button>
             </form>
         </div>

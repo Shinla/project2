@@ -1,13 +1,13 @@
 <?php 
 session_start();
 
-	include("./config/conn.php");
-    include("./config/function.php");
+include("./config/conn.php");
+include("./config/function.php");
 
-	$user_data = check_login($con);
+$user_data = check_login($con);
 
 ?>
-
+  
 
 
 <!DOCTYPE html>
@@ -17,7 +17,7 @@ session_start();
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Bio MP | Home</title>
+    <title>Bio MP | Security</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -27,52 +27,119 @@ session_start();
 
     <!-- Google Fonts -->
     <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
         rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="assets/vendor/aos/aos.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
     <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
     <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
     <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
 
     <!-- Template Main CSS File -->
     <link href="assets/css/style.css" rel="stylesheet">
 
+    <style>
+    section.terms-and-conditions {
+        background-color: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        margin: 30px 0;
+    }
+
+    h3 {
+        font-size: 32px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    h5 {
+        font-size: 18px;
+        color: #555;
+        margin-bottom: 20px;
+        border-bottom: 2px solid #ccc;
+        padding-bottom: 10px;
+    }
+
+    ol {
+        list-style-type: decimal;
+        margin-left: 20px;
+    }
+
+    ol li {
+        font-size: 16px;
+        margin-bottom: 10px;
+        color: #666;
+    }
+
+    p {
+        margin-bottom: 10px;
+        color: #777;
+    }
+
+    @media (max-width: 768px) {
+        section.terms-and-conditions {
+            padding: 20px;
+        }
+
+        h3 {
+            font-size: 28px;
+        }
+
+        h5 {
+            font-size: 16px;
+        }
+
+        ol li {
+            font-size: 14px;
+        }
+
+        p {
+            font-size: 14px;
+        }
+    }
+    </style>
 </head>
 
 <body>
 
-    <!-- ======= Header ======= -->
-    <header id="header" class="header fixed-top">
-        <div class="container-fluid container-xl d-flex align-items-center justify-content-between">
+      <!-- ======= Header ======= -->
+      <header id="header" class="fixed-top header-inner-pages">
+        <div class="container d-flex align-items-center justify-content-lg-between">
 
-            <a href="index.html" class="logo d-flex align-items-center">
-                <span>Bio MP</span>
-            </a>
+            <h1 class="logo me-auto me-lg-0"><a href="index.php" style="color:#ffd584;">Bio MP</a></h1>
 
-            <nav id="navbar" class="navbar">
+            <nav id="navbar" class="navbar order-last order-lg-0">
                 <ul>
-                    <li><a class="nav-link scrollto active" href="index.php" data-translation-key="home">Home</a></li>
+                    <li><a class="nav-link scrollto " href="index.php" data-translation-key="home">Home</a></li>
                     <li><a class="nav-link scrollto" href="index.php#about" data-translation-key="aboutUs">About</a>
                     </li>
-                    <li><a class="nav-link scrollto" href="index.php#services"
-                            data-translation-key="services">Services</a></li>
-                    <li><a href="market.php" data-translation-key="mar">Derivatives</a></li>
-                    <li class="dropdown">
-                        <a href="#"><span data-translation-key="Language">Language</span><i
+                    <li class="dropdown"><a href="#"><span data-translation-key="services">Services</span> <i
                                 class="bi bi-chevron-down"></i></a>
-                        <ul class="dropdown-menu dropdown-menu-left">
+                        <ul>
+                            <li><a href="market.php" data-translation-key="mar">Market</a></li>
+                            <li><a href="#pricing" data-translation-key="pak">Package</a></li>
+                            <li><a href="wallet.php" data-translation-key="wallet">Wallet</a></li>  
+                        </ul>
+                    </li>
+                    <li><a href="security.php" data-translation-key="sec">Security</a></li>
+                    <li class="dropdown">
+                        <a href="#"><span data-translation-key="Language"></span><i class="bi bi-chevron-down"></i></a>
+                        <ul class="dropdown-menu-left">
                             <li><a href="#" onclick="changeLanguage('en')">English</a></li>
                             <li><a href="#" onclick="changeLanguage('zh')">中文</a></li>
                         </ul>
                     </li>
-                    <li><a class="" href="wallet.php" data-translation-key="wallet">Wallet</a></li>
-                    <li><a class="nav-link" href="logout.php" data-translation-key="loge"> Log Out</a></li>
+
+                
+
+
+                    <!-- Logout Icon with Link -->
+                    <li><a class="nav-link" href="logout.php"><i class="bi bi-box-arrow-right"></i></a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav><!-- .navbar -->
@@ -80,23 +147,23 @@ session_start();
         </div>
     </header><!-- End Header -->
 
-    <main id="main">
 
-        <!-- ======= Breadcrumbs ======= -->
-        <section class="breadcrumbs">
-            <div class="container">
+    <!-- ======= Breadcrumbs ======= -->
+    <section class="breadcrumbs">
+        <div class="container">
 
-                <ol>
-                    <li><a href="index.html" data-translation-key="home">Home</a></li>
-                    <li data-translation-key="sec"></li>
-                </ol>
-                <h2 data-translation-key="sec"></h2>
+            <ol>
+                <li><a href="index.php" data-translation-key="home">Home</a></li>
+                <li data-translation-key="sec"></li>
+            </ol>
 
-            </div>
-        </section><!-- End Breadcrumbs -->
+        </div>
+    </section><!-- End Breadcrumbs -->
 
-        <!-- ======= Features Section ======= -->
-        <section id="features" class="features">
+
+
+           <!-- ======= Features Section ======= -->
+           <section id="features" class="features">
             <div class="container" data-aos="fade-up">
 
                 <!-- Feature Icons -->
@@ -110,7 +177,7 @@ session_start();
                     <div class="row">
 
                         <div class="col-xl-4 text-center" data-aos="fade-right" data-aos-delay="100">
-                            <img src="assets/img/sec.jpg" class="img-fluid p-4" alt="">
+                            <img src="assets/img/team/sec.jpg" class="img-fluid p-4" alt="">
                         </div>
 
                         <div class="col-xl-8 d-flex content">
@@ -179,7 +246,7 @@ session_start();
                         <p><span data-translation-key="secu18"></span></p>
                     </header>
                     <div class="col-lg-6">
-                        <img src="assets/img/staff.jpg" class="img-fluid" alt="">
+                        <img src="assets/img/team/staff.jpg" class="img-fluid" alt="">
                     </div>
 
                     <div class="col-lg-6 mt-5 mt-lg-0 d-flex">
@@ -282,8 +349,7 @@ session_start();
         <div class="container" data-aos="fade-up">
 
             <header class="section-header">
-                <h2 data-translation-key="in73">Verify by</h2>
-                <p data-translation-key="in74">Professional institution verification</p>
+                <h2 data-translation-key="in73">Verify by Professional institution verification</h2>
             </header>
 
             <div class="clients-slider swiper">
@@ -399,88 +465,96 @@ session_start();
 
 </section><!-- End F.A.Q Section -->
 
+
+
     </main><!-- End #main -->
 
-      <!-- ======= Footer ======= -->
-      <footer id="footer" class="footer">
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+        <div class="footer-top">
+            <div class="container">
+                <div class="row">
 
-<div class="footer-top">
-  <div class="container">
-    <div class="row gy-4">
-      <div class="col-lg-5 col-md-12 footer-info">
-        <a href="index.html" class="logo d-flex align-items-center">
-          <span>Bio MP</span>
-        </a>
-        <p data-translation-key="in75">Empowering Tomorrow's Crypto Landscape with Sustainable Innovation. Redefining Prosperity, Responsibly.</p>
-      </div>
+                    <div class="col-lg-3 col-md-6">
+                        <div class="footer-info">
+                            <h3 style="color: #ffc451;">BIO MP</h3>
+                            <p>
+                                <strong><span data-translation-key="foo7"></span></strong> +1 5589 55488 55<br>
+                                <strong><span data-translation-key="foo8"></span></strong> info@example.com<br>
+                            </p><br>
+                            <strong data-translation-key="in75"></strong>
+                        </div>
+                    </div>
 
-      <div class="col-lg-2 col-6 footer-links">
-        <h4 data-translation-key="in76">Useful Links</h4>
-        <ul>
-          <li><i class="bi bi-chevron-right"></i> <a href="index.php" data-translation-key="home">Home</a></li>
-          <li><i class="bi bi-chevron-right"></i> <a href="index.php#about" data-translation-key="aboutUs">About us</a></li>
-          <li><i class="bi bi-chevron-right"></i> <a href="index.php#services" data-translation-key="services">Services</a></li>
-          <li><i class="bi bi-chevron-right"></i> <a href="tnc.php" data-translation-key="foo2">Terms of service</a></li>
-          <li><i class="bi bi-chevron-right"></i> <a href="privacy.php" data-translation-key="foo3">Privacy policy</a></li>
-        </ul>
-      </div>
+                    <div class="col-lg-2 col-md-6 footer-links">
+                        <h4 data-translation-key="foo1">Useful Links</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i> <a href="index.php" data-translation-key="home">Home</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="index.php#about" data-translation-key="aboutUs">About us</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="index.php#services" data-translation-key="services">Services</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="tnc.php" data-translation-key="foo2">Terms of service</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="privacy.php" data-translation-key="foo3">Privacy policy</a></li>
+                        </ul>
+                    </div>
 
-      <div class="col-lg-2 col-6 footer-links">
-        <h4 data-translation-key="in77">Our Services</h4>
-        <ul>
-          <li><i class="bi bi-chevron-right"></i> <a href="market.php" data-translation-key="mar">Derivatives</a></li>
-          <li><i class="bi bi-chevron-right"></i> <a href="security.php" data-translation-key="sec">Security</a></li>
-          <li><i class="bi bi-chevron-right"></i> <a href="index.php#pricing" data-translation-key="in78">Package</a></li>
-          <li><i class="bi bi-chevron-right"></i> <a href="#faq" data-translation-key="faq">FAQ</a></li>
-          <li><i class="bi bi-chevron-right"></i> <a href="index.php#features" data-translation-key="in8">Features</a></li>
-        </ul>
-      </div>
+                    <div class="col-lg-3 col-md-6 footer-links">
+                        <h4 data-translation-key="foo6">Our Services</h4>
+                        <ul>
+                            <li><i class="bx bx-chevron-right"></i> <a href="index.php#counts" data-translation-key="in8">Features</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="index.php#pricing" data-translation-key="in78">Package</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="security.php" data-translation-key="sec">Security</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="#faq" data-translation-key="faq">FAQ</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="market.php" data-translation-key="mar">Derivatives</a></li>
+                        </ul>
+                    </div>
 
-      <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
-        <h4 data-translation-key="foo5">Server Status</h4>
-      
-        <!-- Europe - West Server -->
-        <div class="server-status">
-          <div class="green-dot"></div>
-          <div class="server-info">Europe - West</div>
+                    <div class="col-lg-4 col-md-6 footer-newsletter">
+                        <h4 data-translation-key="foo5">Server Status</h4>
+
+                        <!-- Europe - West Server -->
+                        <div class="server-status">
+                            <div class="green-dot"></div>
+                            <div class="server-info">Europe - West</div>
+                        </div>
+
+                        <!-- USA - West Server -->
+                        <div class="server-status pt-2">
+                            <div class="green-dot"></div>
+                            <div class="server-info">USA - West</div>
+                        </div>
+
+                        <!-- Asia - East Server -->
+                        <div class="server-status pt-2">
+                            <div class="green-dot"></div>
+                            <div class="server-info">Asia - East</div>
+                        </div>
+
+                        <!-- South America - South Server -->
+                        <div class="server-status pt-2">
+                            <div class="green-dot"></div>
+                            <div class="server-info">South America - South</div>
+                        </div>
+
+                        <!-- Africa - North Server -->
+                        <div class="server-status pt-2">
+                            <div class="green-dot"></div>
+                            <div class="server-info">Africa - North</div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
         </div>
-    
-        <!-- USA - West Server -->
-        <div class="server-status pt-2">
-          <div class="green-dot"></div>
-          <div class="server-info">USA - West</div>
-        </div>
-    
-        <!-- Asia - East Server -->
-        <div class="server-status pt-2">
-          <div class="green-dot"></div>
-          <div class="server-info">Asia - East</div>
-        </div>
-    
-        <!-- South America - South Server -->
-        <div class="server-status pt-2">
-          <div class="green-dot"></div>
-          <div class="server-info">South America - South</div>
-        </div>
-    
-        <!-- Africa - North Server -->
-        <div class="server-status pt-2">
-          <div class="green-dot"></div>
-          <div class="server-info">Africa - North</div>
-        </div>
-      </div>
 
-    </div>
-  </div>
-</div>
+        <div class="container">
+            <div class="copyright">
+                &copy; Copyright <strong><span>Bio Mining Pool</span></strong>. All Rights Reserved
+            </div>
+        </div>
+    </footer><!-- End Footer -->
 
-<div class="container">
-  <div class="copyright">
-    &copy; Copyright <strong><span>Bio Mining Pool</span></strong>. All Rights Reserved
-  </div>
-</div>
-</footer><!-- End Footer -->
-
+    <div id="preloader"></div>
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
 
@@ -491,15 +565,11 @@ session_start();
     <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
     <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
     <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="assets/vendor/php-email-form/validate.js"></script>
+
 
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
     <script src="assets/js/lang.js"></script>
-
-
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
 </body>
 

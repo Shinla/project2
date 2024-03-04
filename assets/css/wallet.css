@@ -1,85 +1,142 @@
+/* Add your styles here */
 body {
-    font-family: 'Poppins', sans-serif;
-    background: linear-gradient(45deg, #3498db, #8e44ad);
-    color: #ffffff;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.container {
-    margin-top: 50px;
+.wallet {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url('../img/back.jpg'); /* Replace 'your-background-image.jpg' with the actual image path */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
-.card {
-    border: none;
-    border-radius: 15px;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    background: #ffffff;
-    overflow: hidden;
+.wallet-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
-.card-title {
-    color: #333333;
+.wallet-sidebar {
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.balance-container,
-.history-container,
-.send-receive-form {
-    padding: 20px;
+.wallet-btn {
+  margin-bottom: 20px;
+  padding: 10px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
 }
 
-.balance {
-    font-size: 24px;
-    font-weight: bold;
-    color: #2ecc71;
+.wallet-btn:hover {
+  background-color: #333;
 }
 
-.btn-primary,
-.btn-success,
-.btn-info {
-    border: none;
-    padding: 10px 20px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background 0.3s ease;
+.wallet-content {
+  width: 100%;
+  background-color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
-.btn-primary {
-    background: #2ecc71;
-    color: #ffffff;
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 
-.btn-success {
-    background: #3498db;
-    color: #ffffff;
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
 }
 
-.btn-info {
-    background: #007BFF;
-    color: #ffffff;
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
 }
 
-.btn-primary:hover,
-.btn-success:hover,
-.btn-info:hover {
-    filter: brightness(90%);
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-.list-group-item {
-    border: none;
-    padding: 15px;
-    font-size: 14px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 8px;
-    margin-bottom: 10px;
+label {
+  font-weight: bold;
 }
 
-.list-group-item:hover {
-    background: rgba(255, 255, 255, 0.2);
+input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
-.send-receive-form {
-    button {
-        margin-top: 10px;
-        margin-right: 10px;
-    }
+button {
+  padding: 10px;
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
 }
+
+button:hover {
+  background-color: #333;
+}
+
+.wallet-info {
+  background-color: #f0f0f0; /* Updated color */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Added box shadow for a modern look */
+}
+
+.wallet-info h2 {
+  margin-bottom: 10px;
+  color: #333; /* Updated color */
+}
+
+/* Additional styles for wallet information components (customize as needed) */
+.wallet-info p {
+  color: #555;
+}
+
+.wallet-info strong {
+  color: #4CAF50;
+}
+
+.text-success {
+  color: #28a745; /* Updated color for success text */
+}
+
+
+

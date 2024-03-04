@@ -4,17 +4,34 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+
 }
 
-/* Section styles */
-.section {
+.trending{
+  background-color: black;
+}
+
+.current-market{
+  background-image: url('../img/log.jpg'); /* Replace 'your-background-image.jpg' with the actual image path */
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+
+/* Custom Trending Cryptocurrencies section styles */
+.trending-section {
   padding: 40px 0;
   background-color: #f5f5f5;
 }
 
-.container {
+.trending-container {
   max-width: 1200px;
   margin: 0 auto;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  padding: 20px;
 }
 
 /* Title styles */
@@ -25,7 +42,7 @@ body {
 
 .h2.section-title {
   font-size: 36px;
-  color: #333;
+  color: #ffc451;
 }
 
 /* Trend section styles */
@@ -111,8 +128,8 @@ body {
 
 /* Market section styles */
 .market {
-  background-color: #f5f5f5;
-  padding: 20px 0;
+  background-color: #f9f9f9; /* Lighter background color */
+  padding: 40px 0; /* Increased padding for better spacing */
 }
 
 .market-tab {
@@ -128,8 +145,8 @@ body {
 }
 
 .tab-btn {
-  padding: 10px 20px;
-  background-color: #4CAF50;
+  padding: 12px 24px; /* Increased button padding */
+  background-color: #5cb85c; /* Green color */
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -144,7 +161,8 @@ body {
 .market-table {
   width: 100%;
   border-collapse: collapse;
-  overflow-x: auto; /* Enable horizontal scrolling on small screens */
+  overflow-x: auto;
+  margin-top: 20px; /* Added margin for separation */
 }
 
 .table-head,
@@ -172,7 +190,7 @@ body {
 }
 
 .rank {
-  color: #4CAF50;
+  color: #5cb85c; /* Green color for rank */
 }
 
 .add-to-fav {
@@ -212,29 +230,31 @@ body {
 .coin-name {
   font-size: 16px;
   color: #333;
+  text-decoration: none; /* Remove underline */
 }
 
 .coin-name:hover {
-  text-decoration: underline;
+  color: #5cb85c; /* Green color on hover */
 }
 
 .last-update.green {
-  color: #4CAF50;
+  color: #5cb85c; /* Green color for last update */
 }
 
 .market-cap {
   font-weight: bold;
+  color: #5cb85c; /* Green color for market cap */
 }
 
 .chart {
   display: block;
-  margin: 0 auto;
+  margin: 20px auto; /* Added margin for separation */
 }
 
 .btn.btn-outline {
-  padding: 10px 20px;
-  border: 1px solid #4CAF50;
-  color: #4CAF50;
+  padding: 12px 24px; /* Increased button padding */
+  border: 1px solid #5cb85c; /* Green border color */
+  color: #5cb85c; /* Green text color */
   text-decoration: none;
   border-radius: 5px;
   display: inline-block;
@@ -242,10 +262,9 @@ body {
 }
 
 .btn.btn-outline:hover {
-  background-color: #4CAF50;
+  background-color: #5cb85c;
   color: #fff;
 }
-
 /* Responsive styles */
 @media screen and (max-width: 768px) {
   .trend-card {
