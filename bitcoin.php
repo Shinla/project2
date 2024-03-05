@@ -428,6 +428,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Function to check account balance and start mining
     document.getElementById('startMiningBtn').addEventListener('click', function() {
+       
         var selectedPackage = document.getElementById('miningPackage').value;
         var accountBalance = <?php echo $user_data['acc_balance']; ?>;
 
