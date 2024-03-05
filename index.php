@@ -212,7 +212,7 @@ $user_data = check_login($con);
                                 <li><strong style="color: #07d5c0;"><span data-translation-key="in34"></span>:
                                         0.7%</strong></li>
                                 <li><strong style="color: #07d5c0;"><span data-translation-key="in35"></span>:
-                                        8</strong></li>
+                                        8<span data-translation-key="hour"></span></strong></li>
                             </ul>
                             <a href="wallet.php" class="btn-buy" data-translation-key="in41">Buy Now</a>
                         </div>
@@ -227,7 +227,7 @@ $user_data = check_login($con);
                                 <li><strong style="color: #65c600;"><span data-translation-key="in34"></span>:
                                         1.12%</strong></li>
                                 <li style="color: #65c600;"><strong><span data-translation-key="in35"></span>:
-                                        6</strong></li>
+                                        6<span data-translation-key="hour"></span></strong></li>
                             </ul>
                             <a href="wallet.php" class="btn-buy" data-translation-key="in41">Buy Now</a>
                         </div>
@@ -242,7 +242,7 @@ $user_data = check_login($con);
                                 <li><strong style="color: #ff901c;"><span data-translation-key="in34"></span>:
                                         1.57%</strong></li>
                                 <li><strong style="color: #ff901c;"><span data-translation-key="in35"></span>:
-                                        2</strong></li>
+                                        2<span data-translation-key="hour"></span></strong></li>
                             </ul>
                             <a href="wallet.php" class="btn-buy" data-translation-key="in41">Buy Now</a>
                         </div>
@@ -257,7 +257,7 @@ $user_data = check_login($con);
                                 <li><strong style="color: #ff0071;"><span data-translation-key="in34"></span>:
                                         3%</strong></li>
                                 <li><strong style="color: #ff0071;"><span data-translation-key="in35"></span>:
-                                        1</strong></li>
+                                        1<span data-translation-key="hour"></span></strong></li>
                             </ul>
                             <a href="wallet.php" class="btn-buy" data-translation-key="in41">Buy Now</a>
                         </div>
