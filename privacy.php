@@ -419,8 +419,8 @@
                         <div class="footer-info">
                             <h3 style="color: #ffc451;">BIO MP</h3>
                             <p>
-                                <strong><span data-translation-key="foo7"></span></strong> +1 5589 55488 55<br>
-                                <strong><span data-translation-key="foo8"></span></strong> info@example.com<br>
+                                <strong><a href="https://t.me/biomining" target="_blank"><span data-translation-key="foo7"></span> </a></strong><br>
+                                <strong><span data-translation-key="foo8"></span></strong>: support@biomp.online<br>
                             </p><br>
                             <strong data-translation-key="in75"></strong>
                         </div>

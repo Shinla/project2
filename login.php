@@ -15,7 +15,19 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         // Registration Logic
         $email = $_POST['email'];
 
-        if (!empty($user_name) && !empty($password) && !empty($email)) {
+        // Check for duplicate username
+        $check_username_query = "SELECT * FROM users WHERE user_name = '$user_name'";
+        $check_username_result = mysqli_query($con, $check_username_query);
+
+        // Check for duplicate email
+        $check_email_query = "SELECT * FROM users WHERE email = '$email'";
+        $check_email_result = mysqli_query($con, $check_email_query);
+
+        if (mysqli_num_rows($check_username_result) > 0) {
+            $error_message = "Username already exists. Please choose another username.";
+        } elseif (mysqli_num_rows($check_email_result) > 0) {
+            $error_message = "Email already exists. Please use another email address.";
+        } else {
             // Omitting user_id from the insert query to allow auto-increment
             $query = "INSERT INTO users (user_name, email, password) VALUES ('$user_name', '$email', '$password')";
 
@@ -24,8 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
             } else {
                 $error_message = "Error: " . mysqli_error($con);
             }
-        } else {
-            $error_message = "Please fill in all the registration fields.";
         }
     } elseif (isset($_POST['login'])) {
         // Login Logic
@@ -49,6 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -90,7 +101,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                                 <input type="checkbox" class="form-check-input" id="termsCheckbox" name="termsCheckbox"
                                     required>
                                 <label class="form-check-label" for="termsCheckbox">
-                                    I agree to the <a href="tnc.php">Terms and Conditions</a>
+                                    <span data-translation-key="lo2"></span><a href="tnc.php"> <span data-translation-key="lo9"></span></a>
                                 </label>
                             </div>
                         </div>
