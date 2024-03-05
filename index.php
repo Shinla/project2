@@ -284,7 +284,7 @@ $user_data = check_login($con);
                                 <div class="col-md-6 d-md-flex align-items-md-stretch">
                                     <div class="count-box">
                                         <i class="bi bi-emoji-smile"></i>
-                                        <span data-purecounter-start="0" data-purecounter-end="8165"
+                                        <span data-purecounter-start="0" data-purecounter-end="8168"
                                             data-purecounter-duration="2" class="purecounter"></span>
                                         <p><strong data-translation-key="ab20">Number of miners</strong></p>
                                     </div>

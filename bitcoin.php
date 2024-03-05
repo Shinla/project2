@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 
 include("./config/conn.php");
@@ -6,7 +6,47 @@ include("./config/function.php");
 
 $user_data = check_login($con);
 
-// Assuming 'vip_levels' is the name of your VIP levels table
+// Check if the form is submitted
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    if (isset($_POST['miningPackage']) && !empty($_POST['miningPackage'])) {
+        $selectedPackage = (float)$_POST['miningPackage'];
+
+        if ($selectedPackage <= $user_data['acc_balance']) {
+            $newBalance = $user_data['acc_balance'] - $selectedPackage;
+
+            $updateQuery = "UPDATE users SET acc_balance = $newBalance WHERE user_id = " . $user_data['user_id'];
+            $updateResult = mysqli_query($con, $updateQuery);
+
+            if ($updateResult) {
+                // Update user data in the session
+                $_SESSION['user']['acc_balance'] = $newBalance;
+
+                // Display success message
+                $successMessage = "Mining package of $$selectedPackage successfully purchased!";
+            } else {
+                $errorMessage = "Error updating user balance: " . mysqli_error($con);
+            }
+        } else {
+            $errorMessage = "Insufficient balance. Please select a lower mining package or recharge your account.";
+        }
+    } else {
+        $errorMessage = "Invalid or empty mining package value.";
+    }
+}
+
+// Fetch user data again to get the latest information after potential update
+$user_data = check_login($con);
+
+// Fetch the latest 10 mining logs
+$miningLogsQuery = "SELECT start_time, vip_levels.level_name, vip_levels.rates, mining_logs.mining_amount
+FROM mining_logs
+INNER JOIN vip_levels ON mining_logs.user_id = vip_levels.vip_id
+ORDER BY start_time DESC
+LIMIT 10";
+
+$miningLogsResult = mysqli_query($con, $miningLogsQuery);
+
+// Fetch user data with the latest VIP level
 $query = "SELECT users.*, vip_levels.level_name
           FROM users
           LEFT JOIN vip_levels ON users.vip_id = vip_levels.vip_id
@@ -15,14 +55,14 @@ $query = "SELECT users.*, vip_levels.level_name
 $result = mysqli_query($con, $query);
 
 if ($result) {
-    $row = mysqli_fetch_assoc($result);
-    $user_data = $row;
+    $user_data = mysqli_fetch_assoc($result);
 } else {
-    // Handle the error, e.g., display an error message or redirect to an error page
     die("Error fetching user data: " . mysqli_error($con));
 }
 
 ?>
+
+
 
 
 <!DOCTYPE html>
@@ -56,95 +96,8 @@ if ($result) {
 
 
     <!-- Template Main CSS File -->
-    <link href="assets/css/style.css" rel="stylesheet">
-    <link href="assets/css/mining.css" rel="stylesheet">
-
-    <style>
-    /* Add your custom CSS styles here */
-    #startMiningBtn,
-    #stopMiningBtn {
-        background-color: #4CAF50;
-        color: white;
-        padding: 10px 20px;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-        margin-bottom: 10px;
-    }
-
-    #miningPackage {
-        padding: 8px;
-        border-radius: 5px;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-        color: white;
-        /* Set text color for the table */
-    }
-
-    table,
-    th,
-    td {
-        border: 1px solid #ddd;
-    }
-
-    th,
-    td {
-        padding: 10px;
-        text-align: left;
-        background-color: rgba(255, 255, 255, 0.1);
-        /* Light background color for table cells */
-    }
-
-    th {
-        background-color: #4CAF50;
-        color: white;
-    }
-
-    .success-alert {
-        background-color: #4CAF50;
-        color: white;
-        text-align: center;
-        padding: 10px;
-        border-radius: 5px;
-        margin-top: 10px;
-    }
-
-    .portfolio-details {
-        background-image: url('assets/img/log.jpg');
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        color: white;
-        /* Set text color for the reverse side */
-
-    }
-
-    /* Add your custom CSS styles here */
-    .btn-buy {
-        display: inline-block;
-        padding: 10px 20px;
-        font-size: 16px;
-        font-weight: bold;
-        text-align: center;
-        text-decoration: none;
-        background-color: #4CAF50;
-        /* Green color, you can change it to your preferred color */
-        color: #ffffff;
-        /* White text color */
-        border-radius: 5px;
-        transition: background-color 0.3s ease;
-        /* Add a smooth transition effect */
-    }
-
-    .btn-buy:hover {
-        background-color: #45a049;
-        /* Darker green color on hover */
-    }
-    </style>
+    <link href="./assets/css/style.css" rel="stylesheet">
+    <link href="./assets/css/mining.css" rel="stylesheet">
 
 
 </head>
@@ -186,30 +139,89 @@ if ($result) {
 
     <main id="main">
 
-        <br><br><br>
+        <br><br>
 
-        <!-- ======= Portfolio Details Section ======= -->
         <section id="portfolio-details" class="portfolio-details reverse-side">
             <div class="container">
 
                 <div class="row gy-4">
-                    <div class="col-lg-8">
-                        <button id="startMiningBtn" class="btn-buy">Start Mining</button>
-                        <div>
+                    <div class="col-lg-12">
+                        <!-- Simplified form -->
+                        <form method="POST" action="">
                             <label for="miningPackage">Select Mining Package:</label>
-                            <select id="miningPackage">
+                            <select id="miningPackage" name="miningPackage">
                                 <option value="300">Bronze - $300</option>
                                 <option value="1000">Silver - $1000</option>
                                 <option value="1500">Gold - $1500</option>
                                 <option value="5000">Platinum - $5000</option>
                             </select>
-                        </div>
-                        <div>
-                        <?php displayMiningTable($con); ?>
+                            <button type="submit" class="btn-buy">Start Mining</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Enhanced alert messages -->
+                <?php if (isset($successMessage)) { ?>
+                <div class="success-alert">
+                    <?php echo $successMessage; ?>
+                </div>
+                <?php } ?>
+
+                <?php if (isset($errorMessage)) { ?>
+                <div class="error-alert">
+                    <?php echo $errorMessage; ?>
+                </div>
+                <?php } ?>
+
+                <!-- Enhanced insufficient balance alert -->
+                <?php if (isset($errorMessage)) { ?>
+                <div class="insufficient-balance-alert">
+                    <?php echo $errorMessage; ?>
+                </div>
+                <?php } ?>
+
+                <div id="alertContainer"></div>
+
+                <!-- Display mining records table -->
+                <section id="mining-records">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <h2>Mining Records</h2>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Start Time</th>
+                                            <th>VIP Level</th>
+                                            <th>Rate</th>
+                                            <th>Amount</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <?php
+                                        if ($miningLogsResult) {
+                                            while ($row = mysqli_fetch_assoc($miningLogsResult)) {
+                                                echo '<tr>';
+                                                echo '<td>' . $row['start_time'] . '</td>';
+                                                echo '<td>' . $row['level_name'] . '</td>';
+                                                echo '<td>' . $row['rates'] . '</td>';
+                                                echo '<td>' . $row['mining_amount'] . '</td>';
+                                                echo '</tr>';
+                                            }
+                                        } else {
+                                            echo '<tr><td colspan="4">Error fetching mining logs: ' . mysqli_error($con) . '</td></tr>';
+                                        }
+                                        ?>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
+                </section>
 
-                    <div class="col-lg-4">
+                <div class="row">
+                    <!-- Bitcoin Information -->
+                    <div class="col-lg-6">
                         <div class="portfolio-info">
                             <h3>Bitcoin Information</h3>
                             <ul>
@@ -220,9 +232,12 @@ if ($result) {
                                 <button id="stopMiningBtn" class="btn-buy">Stop Mining</button>
                             </ul>
                         </div>
-                        <br>
+                    </div>
+
+                    <!-- User Information -->
+                    <div class="col-lg-6">
                         <div class="portfolio-info">
-                            <h3>User information</h3>
+                            <h3>User Information</h3>
                             <ul>
                                 <li><strong>Username</strong>: <?php echo $user_data['user_name']; ?></li>
                                 <li><strong>VIP Level:</strong> <?php echo $user_data['level_name']; ?></li>
@@ -234,6 +249,7 @@ if ($result) {
                     </div>
                 </div>
 
+
             </div>
         </section><!-- End Portfolio Details Section -->
 
@@ -243,8 +259,8 @@ if ($result) {
 
     </main><!-- End #main -->
 
-     <!-- ======= Footer ======= -->
-     <footer id="footer">
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
         <div class="footer-top">
             <div class="container">
                 <div class="row">
@@ -253,7 +269,8 @@ if ($result) {
                         <div class="footer-info">
                             <h3 style="color: #ffc451;">BIO MP</h3>
                             <p>
-                                <strong><a href="https://t.me/biomining" target="_blank"><span data-translation-key="foo7"></span> </a></strong><br>
+                                <strong><a href="https://t.me/biomining" target="_blank"><span
+                                            data-translation-key="foo7"></span> </a></strong><br>
                                 <strong><span data-translation-key="foo8"></span></strong>: support@biomp.online<br>
                             </p><br>
                             <strong data-translation-key="in75"></strong>
@@ -263,22 +280,32 @@ if ($result) {
                     <div class="col-lg-2 col-md-6 footer-links">
                         <h4 data-translation-key="foo1">Useful Links</h4>
                         <ul>
-                            <li><i class="bx bx-chevron-right"></i> <a href="index.php" data-translation-key="home">Home</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="index.php#about" data-translation-key="aboutUs">About us</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="index.php#services" data-translation-key="services">Services</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="tnc.php" data-translation-key="foo2">Terms of service</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="privacy.php" data-translation-key="foo3">Privacy policy</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="index.php"
+                                    data-translation-key="home">Home</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="index.php#about"
+                                    data-translation-key="aboutUs">About us</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="index.php#services"
+                                    data-translation-key="services">Services</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="tnc.php" data-translation-key="foo2">Terms
+                                    of service</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="privacy.php"
+                                    data-translation-key="foo3">Privacy policy</a></li>
                         </ul>
                     </div>
 
                     <div class="col-lg-3 col-md-6 footer-links">
                         <h4 data-translation-key="foo6">Our Services</h4>
                         <ul>
-                            <li><i class="bx bx-chevron-right"></i> <a href="index.php#counts" data-translation-key="in8">Features</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="index.php#pricing" data-translation-key="in78">Package</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="security.php" data-translation-key="sec">Security</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="index.php#faq" data-translation-key="faq">FAQ</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="market.php" data-translation-key="mar">Derivatives</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="index.php#counts"
+                                    data-translation-key="in8">Features</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="index.php#pricing"
+                                    data-translation-key="in78">Package</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="security.php"
+                                    data-translation-key="sec">Security</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="index.php#faq"
+                                    data-translation-key="faq">FAQ</a></li>
+                            <li><i class="bx bx-chevron-right"></i> <a href="market.php"
+                                    data-translation-key="mar">Derivatives</a></li>
                         </ul>
                     </div>
 
@@ -346,24 +373,25 @@ if ($result) {
     <script src="assets/js/main.js"></script>
     <script src="assets/js/lang.js"></script>
 
-
     <script>
 document.addEventListener('DOMContentLoaded', function() {
     var miningInterval;
 
-    // Function to display success message
-    function displaySuccessMessage(message) {
-        var successAlert = document.getElementById('successAlert');
-        successAlert.innerHTML = message;
-        successAlert.style.display = 'block';
-        setTimeout(function() {
-            successAlert.style.display = 'none';
-        }, 10000); // Hide after 10 seconds
-    }
+    function displayAlert(message, alertType) {
+    var alertContainer = document.getElementById('alertContainer');
+    var alertElement = document.createElement('div');
+    alertElement.className = 'alert alert-dismissible fade show ' + alertType;
+    alertElement.innerHTML = `
+        <strong>${message}</strong>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    `;
+
+    // Append the new alert
+    alertContainer.appendChild(alertElement);
+}
 
     // Function to update Bitcoin information
     function updateBitcoinInfo() {
-        document.querySelector('.portfolio-info h3').textContent = 'Bitcoin Information';
         var bitcoinInfoList = document.querySelectorAll('.portfolio-info ul li');
         bitcoinInfoList[0].innerHTML = `<strong>Last Price</strong>: $61,849.97`;
         bitcoinInfoList[1].innerHTML = `<strong>24 Hours Change</strong>: +0.41%`;
@@ -372,84 +400,93 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     // Function to start mining
-    function startMining(package) {
-        console.log('Mining started with package: $' + package);
-
-        // Generate a random ID within the specified range
-        var miningId = Math.floor(Math.random() * (999999 - 10000 + 1)) + 10000;
-
-        // Get the current time in the user's locale
-        var startTime = new Date().toLocaleString();
-
+    function startMining(package, userBalance) {
         // Parse the package value as a number
         package = parseFloat(package);
 
-        // Lookup the rate based on the selected package
-        var rate;
-        switch (package) {
-            case 300:
-                rate = 0.0070;
-                break;
-            case 1000:
-                rate = 0.0112;
-                break;
-            case 1500:
-                rate = 0.0157;
-                break;
-            case 5000:
-                rate = 0.0300;
-                break;
-            default:
-                rate = 0.0070;
+        if (package <= userBalance) {
+            // Generate a random ID within the specified range
+            var miningId = Math.floor(Math.random() * (999999 - 10000 + 1)) + 10000;
+
+            // Get the current time in the user's locale
+            var startTime = new Date().toLocaleString();
+
+            // Create a mining record object
+            var miningRecord = {
+                id: miningId,
+                package: package,
+                startTime: startTime,
+                status: 'Mining',
+            };
+
+            // Get existing mining records from local storage
+            var existingRecords = JSON.parse(localStorage.getItem('miningRecords')) || [];
+
+            // Add the new mining record to the existing records
+            existingRecords.push(miningRecord);
+
+            // Save the updated records to local storage
+            localStorage.setItem('miningRecords', JSON.stringify(existingRecords));
+
+            // Display success message
+            displayAlert('Mining successfully started!', 'alert-success');
+
+            // Start the auto-stop interval (e.g., stop mining after 5 minutes)
+            miningInterval = setInterval(function() {
+                stopMining(miningRecord);
+            }, 300000); // 300000 milliseconds = 5 minutes
+
+            // Update Bitcoin information
+            updateBitcoinInfo();
+        } else {
+            // Display an alert for insufficient balance
+            displayAlert(
+                'Insufficient balance. Please select a lower mining package or recharge your account.',
+                'alert-danger');
         }
-
-        // Display success message
-        displaySuccessMessage('Mining successfully started!');
-
-        // Start the auto-stop interval (e.g., stop mining after 5 minutes)
-        miningInterval = setInterval(function() {
-            stopMining();
-        }, 300000); // 300000 milliseconds = 5 minutes
-
-        // Update Bitcoin information
-        updateBitcoinInfo();
     }
 
     // Function to stop mining
-    function stopMining() {
-        console.log('Mining stopped');
-
+    function stopMining(miningRecord) {
         // Clear the auto-stop interval
         clearInterval(miningInterval);
 
+        // Update the status of the mining record to 'Stopped'
+        miningRecord.status = 'Stopped';
+
+        // Get existing mining records from local storage
+        var existingRecords = JSON.parse(localStorage.getItem('miningRecords')) || [];
+
+        // Save the updated records to local storage
+        localStorage.setItem('miningRecords', JSON.stringify(existingRecords));
+
         // Display success message
-        displaySuccessMessage('Mining successfully stopped!');
+        displayAlert('Mining successfully stopped!', 'alert-success');
     }
 
     // Function to check account balance and start mining
     document.getElementById('startMiningBtn').addEventListener('click', function() {
-       
         var selectedPackage = document.getElementById('miningPackage').value;
         var accountBalance = <?php echo $user_data['acc_balance']; ?>;
 
-        // Check if the account balance is sufficient for the selected mining package
-        if (accountBalance > 0 && accountBalance >= selectedPackage) {
-            // Call the function to start mining
-            startMining(selectedPackage);
-        } else {
-            // Display an alert for insufficient balance
-            alert('Insufficient balance. Please contact customer service or recharge your account for mining.');
-        }
+        // Call the function to start mining
+        startMining(selectedPackage, accountBalance);
     });
 
     // Function to stop mining (can be called manually or by other events)
     document.getElementById('stopMiningBtn').addEventListener('click', function() {
-        stopMining();
+        // Get the latest mining record from local storage
+        var latestRecord = JSON.parse(localStorage.getItem('miningRecords')).pop();
+
+        // Call the function to stop mining
+        stopMining(latestRecord);
     });
+
+    // Display mining records on page load
+    displayMiningRecords();
 });
 
-    </script>
-
+</script>
 
 
 
