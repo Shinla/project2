@@ -133,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <input type="password" placeholder="Password" name="password">
 
 
-                <button name="login" data-translation-key="signIn">Sign In</button>
+                <button name="login" data-translation-key="signIn"  class="btn btn-primary">Sign In</button>
             </form>
         </div>
 
