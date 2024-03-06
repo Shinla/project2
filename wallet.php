@@ -143,7 +143,12 @@ $user_data = check_login($con);
 
                  
                     <label for="exchangePartner">Exchange Partner:</label>
+                  
                     <input type="text" id="exchangePartner" name="exchangePartner" placeholder="Enter exchange partner"
+                        required>
+
+                        <label for="exchangePartner">Withdraw Address:</label>
+                        <input type="text" id="exchangePartner" name="exchangePartner" placeholder="Enter withdraw address"
                         required>
                     <button type="button" onclick="showWithdrawConfirmation()">Withdraw</button>
                 </form>
