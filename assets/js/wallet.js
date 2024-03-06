@@ -1,38 +1,31 @@
-function openDepositModal() {
-  document.getElementById('depositModal').style.display = 'block';
-}
 
-function closeDepositModal() {
-  document.getElementById('depositModal').style.display = 'none';
-}
+    function openDepositModal() {
+        // Show deposit modal
+        document.getElementById('depositModal').style.display = 'block';
+    }
 
-function openWithdrawModal() {
-  document.getElementById('withdrawModal').style.display = 'block';
-}
+    function closeDepositModal() {
+        // Close deposit modal
+        document.getElementById('depositModal').style.display = 'none';
+    }
 
-function closeWithdrawModal() {
-  document.getElementById('withdrawModal').style.display = 'none';
-}
+    function openWithdrawModal() {
+        // Show withdrawal modal
+        document.getElementById('withdrawModal').style.display = 'block';
+    }
 
-function withdrawFunds() {
-  const withdrawAmount = parseFloat(document.getElementById('withdrawAmount').value);
-  const withdrawalAddress = document.getElementById('withdrawalAddress').value;
-  const username = document.getElementById('username').value;
-  const exchangePartner = document.getElementById('exchangePartner').value;
+    function closeWithdrawModal() {
+        // Close withdrawal modal
+        document.getElementById('withdrawModal').style.display = 'none';
+    }
 
-  if (withdrawAmount >= 500 && withdrawAmount <= 3000) {
-      // Withdrawal success logic
-      alert(`Withdrawal Successful!\nAmount: ${withdrawAmount} USD\nUsername: ${username}\nExchange Partner: ${exchangePartner}`);
-
-      // Schedule a notification after 1 hour
-      setTimeout(() => {
-        alert('Withdrawal failed. Please contact our customer service for assistance.');
-      }, 3600000); // 3600000 milliseconds = 1 hour
-  } else {
-      // Withdrawal failure logic
-      alert('Withdrawal failed. Withdrawal amount must be between 500 and 3000 USD.');
+    function showWithdrawConfirmation() {
+      // Display the Withdraw Confirmation Modal
+      document.getElementById("withdrawConfirmationModal").style.display = "block";
   }
 
-  // Optionally, you can close the modal after processing the withdrawal
-  closeWithdrawModal();
-}
+  // Function to close the Withdraw Confirmation Modal
+  function closeWithdrawConfirmationModal() {
+      // Close the Withdraw Confirmation Modal
+      document.getElementById("withdrawConfirmationModal").style.display = "none";
+  }

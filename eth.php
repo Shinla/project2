@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 
 include("./config/conn.php");
@@ -6,7 +6,7 @@ include("./config/function.php");
 
 $user_data = check_login($con);
 
-// Assuming 'vip_levels' is the name of your VIP levels table
+// Fetch user data including VIP level name
 $query = "SELECT users.*, vip_levels.level_name
           FROM users
           LEFT JOIN vip_levels ON users.vip_id = vip_levels.vip_id
@@ -18,13 +18,47 @@ if ($result) {
     $row = mysqli_fetch_assoc($result);
     $user_data = $row;
 } else {
-    // Handle the error, e.g., display an error message or redirect to an error page
     die("Error fetching user data: " . mysqli_error($con));
 }
 
+// Handle start mining button click
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["startMiningBtn"])) {
+    $selectedPackage = $_POST["miningPackage"];
+    $accountBalance = $user_data['acc_balance'];
+
+    // Check if the account balance is sufficient for the selected mining package
+    if ($accountBalance >= $selectedPackage) {
+        // Calculate mining amount
+        $miningAmount = $selectedPackage;
+
+        // Deduct the mining amount from the account balance
+        $newBalance = $accountBalance - $miningAmount;
+
+        // Update the user's account balance in the database
+        $updateQuery = "UPDATE users SET acc_balance = $newBalance WHERE user_id = " . $user_data['user_id'];
+        $updateResult = mysqli_query($con, $updateQuery);
+
+        $miningRecordQuery = "SELECT id, mining_amount, start_time FROM mining_logs WHERE user_id = " . $user_data['user_id'] . " ORDER BY id DESC LIMIT 1";
+        $miningRecordResult = mysqli_query($con, $miningRecordQuery);
+
+        if ($miningRecordResult && mysqli_num_rows($miningRecordResult) > 0) {
+            $miningRecord = mysqli_fetch_assoc($miningRecordResult);
+
+            // Display a success message along with the mining record
+            echo json_encode(['success' => true, 'message' => 'Mining started successfully!', 'miningRecord' => $miningRecord]);
+        } else {
+            // Handle database error
+            echo json_encode(['success' => false, 'message' => 'Error fetching mining record']);
+        }
+    } else {
+        // Display an alert for insufficient balance
+        echo json_encode(['success' => false, 'message' => 'Insufficient balance']);
+    }
+
+    // Ensure the script stops execution after handling the request
+    exit();
+}
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,7 +66,7 @@ if ($result) {
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Bio MP</title>
+    <title>Bio MP </title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -194,7 +228,9 @@ if ($result) {
 
                 <div class="row gy-4">
                     <div class="col-lg-8">
-                        <button id="startMiningBtn" class="btn-buy">Start Mining</button>
+                        <button id="startMiningBtn" type="submit" name="startMiningBtn" class="btn-buy">Start
+                            Mining</button>
+
                         <div>
                             <label for="miningPackage">Select Mining Package:</label>
                             <select id="miningPackage">
@@ -211,7 +247,6 @@ if ($result) {
                                     <tr>
                                         <th>ID</th>
                                         <th>Amount</th>
-                                        <th>Rate</th>
                                         <th>Start Time Hour</th>
                                     </tr>
                                 </thead>
@@ -223,15 +258,17 @@ if ($result) {
                         </div>
                     </div>
 
+                    <div id="successAlert"></div>
+
+
                     <div class="col-lg-4">
                         <div class="portfolio-info">
                             <h3>Ethereum Information</h3>
                             <ul>
-                                <li><strong>Last Price</strong>: $3,436.88</li>
-                                <li><strong>24 Hours Change</strong>:+0.50%</li>
-                                <li><strong>Market Cap</strong>: $412.89B</li>
+                                <li><strong>Last Price</strong>: $3,774.24</li>
+                                <li><strong>24 Hours Change</strong>: +1.27%</li>
+                                <li><strong>Market Cap</strong>: $454.26B</li>
                                 <li><strong>Supply</strong>: 60.07M</li><br>
-                                <button id="stopMiningBtn" class="btn-buy">Stop Mining</button>
                             </ul>
                         </div>
                         <br>
@@ -368,176 +405,123 @@ if ($result) {
 
 
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        var miningInterval;
+   document.addEventListener('DOMContentLoaded', function () {
+    // Load and display mining records from localStorage on page load
+    loadAndDisplayMiningRecords();
 
-        // Function to display success message
-        function displaySuccessMessage(message) {
-            var successAlert = document.getElementById('successAlert');
-            successAlert.innerHTML = message;
-            successAlert.style.display = 'block';
-            setTimeout(function() {
-                successAlert.style.display = 'none';
-            }, 10000); // Hide after 10 seconds
+    // Function to start mining and update mining data
+    function startMiningAndDeduct(selectedPackage) {
+        // Ask for confirmation before starting mining
+        var confirmMining = confirm("Are you sure you want to start mining?");
+
+        if (!confirmMining) {
+            // User canceled the mining operation
+            return;
         }
 
-        // Function to generate a random ID between 10000 and 999999
-        function generateRandomId() {
-            return Math.floor(Math.random() * (999999 - 10000 + 1)) + 10000;
-        }
+        // Get the current timestamp in seconds
+        var currentTime = Math.floor(new Date().getTime() / 1000);
 
-        // Function to get the current time in the user's locale
-        function getCurrentTime() {
-            var now = new Date();
-            var options = {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: 'numeric',
-                minute: 'numeric',
-                second: 'numeric',
-                timeZoneName: 'short'
-            };
-            var formattedTime = new Intl.DateTimeFormat(navigator.language, options).format(now);
-            return formattedTime;
-        }
+        // Send an asynchronous request to the same PHP file
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "", true); // Use POST method and an empty URL to refer to the same file
 
-        function startMining(package) {
-            console.log('Mining started with package: $' + package);
+        // Set the Content-Type header for POST requests
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 
-            // Generate a random ID within the specified range
-            var miningId = generateRandomId();
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                // Handle the response, e.g., display a success message
+                var response = JSON.parse(xhr.responseText);
 
-            // Get the current time in the user's locale
-            var startTime = getCurrentTime();
+                if (response.success) {
+                    alert(response.message);
 
-            // Parse the package value as a number
-            package = parseFloat(package);
+                    // Display mining record with the current time and selected package amount
+                    var miningRecord = {
+                        id: response.miningRecord.id,
+                        start_time: currentTime,
+                        amount: selectedPackage
+                    };
 
-            // Lookup the rate based on the selected package
-            var rate;
-            switch (package) {
-                case 300:
-                    rate = 0.0070;
-                    break;
-                case 1000:
-                    rate = 0.0112;
-                    break;
-                case 1500:
-                    rate = 0.0157;
-                    break;
-                case 5000:
-                    rate = 0.0300;
-                    break;
-                default:
-                    rate = 0.0070;
-            }
+                    displayMiningRecord(miningRecord);
 
-            // Assume some mining data is returned, update the page accordingly
-            var miningData = {
-                id: miningId,
-                amount: package,
-                rate: rate,
-                startTime: startTime,
-            };
+                    // Save the mining record to localStorage
+                    saveMiningRecord(miningRecord);
 
-            // Update Mining Records table
-            var table = document.querySelector('#portfolio-details table');
-            var newRow = table.insertRow(table.rows.length);
-            newRow.innerHTML =
-                `<td>${miningData.id}</td><td>${miningData.amount}</td><td>${miningData.rate}</td><td>${miningData.startTime}</td>`;
-
-            // Save mining data to local storage
-            saveMiningData(miningData);
-
-            // Update Ethereum Information
-            document.querySelector('.portfolio-info h3').textContent = 'Ethereum Information';
-            var ethereumInfoList = document.querySelectorAll('.portfolio-info ul li');
-            ethereumInfoList[0].innerHTML =
-            `<strong>Last Price</strong>: $2,564.37`; // Change Ethereum information
-            ethereumInfoList[1].innerHTML =
-            `<strong>24 Hours Change</strong>: -0.85%`; // Change Ethereum information
-            ethereumInfoList[2].innerHTML = `<strong>Market Cap</strong>: $300B`; // Change Ethereum information
-            ethereumInfoList[3].innerHTML = `<strong>Supply</strong>: 120M`; // Change Ethereum information
-
-            // Display success message
-            displaySuccessMessage('Mining successfully started!');
-
-            // Display additional information
-            displaySuccessMessage('Ethereum Information updated!');
-
-            // Start the auto-stop interval (e.g., stop mining after 5 minutes)
-            miningInterval = setInterval(function() {
-                stopMining();
-            }, 300000); // 300000 milliseconds = 5 minutes
-        }
-
-        // Function to stop mining
-        function stopMining() {
-            console.log('Mining stopped');
-
-            // Clear the auto-stop interval
-            clearInterval(miningInterval);
-
-            // Additional logic for stopping mining and updating the page
-            // ...
-
-            // Display success message
-            displaySuccessMessage('Mining successfully stopped!');
-        }
-
-        // Function to check account balance and start mining
-        document.getElementById('startMiningBtn').addEventListener('click', function() {
-            var selectedPackage = document.getElementById('miningPackage').value;
-            var accountBalance = <?php echo $user_data['acc_balance']; ?>;
-
-            // Check if the account balance is sufficient for the selected mining package
-            if (accountBalance > 0 && accountBalance >= selectedPackage) {
-                // Call the function to start mining
-                startMining(selectedPackage);
+                } else {
+                    alert(response.message);
+                }
             } else {
-                // Display an alert for insufficient balance
-                alert(
-                    'Insufficient balance. Please contact customer service or recharge your account for mining.'
-                );
+                // Handle the error, e.g., display an error message
+                alert("Error starting mining: " + xhr.statusText);
             }
-        });
+        };
 
-        // Function to stop mining (can be called manually or by other events)
-        document.getElementById('stopMiningBtn').addEventListener('click', function() {
-            stopMining();
-        });
+        // Send the selected package and current time as POST parameters
+        xhr.send("startMiningBtn=true&miningPackage=" + selectedPackage + "&currentTime=" + currentTime);
+    }
 
-        // Function to save mining data to local storage
-        function saveMiningData(miningData) {
-            // Get existing mining data from local storage
-            var existingMiningData = JSON.parse(localStorage.getItem('miningData')) || [];
-
-            // Add the new mining data to the array
-            existingMiningData.push(miningData);
-
-            // Save the updated array back to local storage
-            localStorage.setItem('miningData', JSON.stringify(existingMiningData));
-        }
-
-        // Function to load mining data from local storage and populate the table
-        function loadMiningData() {
-            var table = document.querySelector('#portfolio-details table');
-            var existingMiningData = JSON.parse(localStorage.getItem('miningData')) || [];
-
-            // Populate the table with existing mining data
-            existingMiningData.forEach(function(data) {
-                var newRow = table.insertRow(table.rows.length);
-                newRow.innerHTML =
-                    `<td>${data.id}</td><td>${data.amount}</td><td>${data.rate}</td><td>${data.startTime}</td><td>${data.endTime}</td>`;
-            });
-        }
-
-        // Load existing mining data when the page is loaded
-        loadMiningData();
+    document.getElementById('startMiningBtn').addEventListener('click', function (event) {
+        var selectedPackage = document.getElementById('miningPackage').value;
+        // Call the function to start mining and deduct balance
+        startMiningAndDeduct(selectedPackage);
     });
+
+    function saveMiningRecord(miningRecord) {
+        // Load existing mining records from localStorage
+        var miningRecords = JSON.parse(localStorage.getItem('miningRecords')) || [];
+
+        // Add the new mining record
+        miningRecords.push(miningRecord);
+
+        // Save updated mining records to localStorage
+        localStorage.setItem('miningRecords', JSON.stringify(miningRecords));
+    }
+
+    function loadAndDisplayMiningRecords() {
+        // Load mining records from localStorage
+        var miningRecords = JSON.parse(localStorage.getItem('miningRecords')) || [];
+
+        // Display mining records in the table
+        miningRecords.forEach(function (record) {
+            displayMiningRecord(record);
+        });
+    }
+
+    function displayMiningRecord(miningRecord) {
+        var table = document.querySelector('table tbody');
+
+        // Create a new table row
+        var newRow = table.insertRow();
+
+        // Create cells and add data to the new row
+        var cell1 = newRow.insertCell(0);
+        var cell2 = newRow.insertCell(1);
+        var cell3 = newRow.insertCell(2);
+
+        // Display the mining record data in the table cells
+        cell1.textContent = miningRecord.id;
+        cell2.textContent = miningRecord.amount; // Display the selected package amount
+        cell3.textContent = formatTimestamp(miningRecord.start_time);
+    }
+
+    function formatTimestamp(timestamp) {
+        var date = new Date(timestamp * 1000);
+
+        // Check if the date is valid
+        if (!isNaN(date.getTime())) {
+            return date.toLocaleString(); // Format the timestamp
+        } else {
+            console.error('Invalid timestamp:', timestamp);
+            return 'Mining';
+        }
+    }
+});
+
     </script>
+
+
 
 
 

@@ -66,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["startMiningBtn"])) {
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Bio MP | Bitcoin</title>
+    <title>Bio MP</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -263,12 +263,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["startMiningBtn"])) {
 
                     <div class="col-lg-4">
                         <div class="portfolio-info">
-                            <h3>Bitcoin Information</h3>
+                            <h3>Tether Information</h3>
                             <ul>
-                                <li><strong>Last Price</strong>: $65,994.27</li>
-                                <li><strong>24 Hours Change</strong>: -1.86%</li>
-                                <li><strong>Market Cap</strong>: $1.42T</li>
-                                <li><strong>Supply</strong>: 14.7M</li><br>
+                                <li><strong>Last Price</strong>: $1.00</li>
+                                <li><strong>24 Hours Change</strong>: +1.01%</li>
+                                <li><strong>Market Cap</strong>: $100.24B</li>
+                                <li><strong>Supply</strong>: 23.7M</li><br>
                             </ul>
                         </div>
                         <br>

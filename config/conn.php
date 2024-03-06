@@ -1,9 +1,9 @@
 <?php
 
-$dbhost = "127.0.0.1";
-$dbuser = "root";
-$dbpass = "";
-$dbname = "log";
+$dbhost = "54.151.210.36";
+$dbuser = "ming";
+$dbpass = "Xiong1903@123";
+$dbname = "project1";
 
 if(!$con = mysqli_connect($dbhost,$dbuser,$dbpass,$dbname))
 {

@@ -263,12 +263,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["startMiningBtn"])) {
 
                     <div class="col-lg-4">
                         <div class="portfolio-info">
-                            <h3>Bitcoin Information</h3>
+                            <h3>Solana Information</h3>
                             <ul>
-                                <li><strong>Last Price</strong>: $65,994.27</li>
-                                <li><strong>24 Hours Change</strong>: -1.86%</li>
-                                <li><strong>Market Cap</strong>: $1.42T</li>
-                                <li><strong>Supply</strong>: 14.7M</li><br>
+                                <li><strong>Last Price</strong>: $131.54</li>
+                                <li><strong>24 Hours Change</strong>: -0.66%</li>
+                                <li><strong>Market Cap</strong>:$58.84B</li>
+                                <li><strong>Supply</strong>: 21.1M</li><br>
                             </ul>
                         </div>
                         <br>

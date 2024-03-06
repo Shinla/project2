@@ -6,25 +6,7 @@ include("./config/function.php");
 
 $user_data = check_login($con);
 
-// Assuming 'vip_levels' is the name of your VIP levels table
-$query = "SELECT users.*, vip_levels.level_name
-          FROM users
-          LEFT JOIN vip_levels ON users.vip_id = vip_levels.vip_id
-          WHERE user_id = " . $user_data['user_id'];
-
-$result = mysqli_query($con, $query);
-
-if ($result) {
-    $row = mysqli_fetch_assoc($result);
-    $user_data = $row;
-} else {
-    // Handle the error, e.g., display an error message or redirect to an error page
-    die("Error fetching user data: " . mysqli_error($con));
-}
-
 ?>
-
-
 
 
 
@@ -106,56 +88,79 @@ if ($result) {
 
     <section class="wallet">
         <div class="wallet-container">
-            <div class="wallet-sidebar">
-                <button class="wallet-btn" onclick="openDepositModal()">Deposit</button>
-                <button class="wallet-btn" onclick="openWithdrawModal()">Withdraw</button>
+            <h2>Wallet Information</h2>
+            <p><strong>Username</strong>: <?php echo $user_data['user_name']; ?></p>
+            <p><strong>Total Amount</strong>: <?php echo $user_data['total_amount']; ?></p>
+
+            <!-- Deposit and Withdrawal Buttons -->
+            <button onclick="openDepositModal()">Deposit</button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <button onclick="openWithdrawModal()">Withdraw</button>
+        </div>
+
+        <!-- Deposit Modal -->
+        <div class="modal" id="depositModal">
+            <div class="modal-content">
+                <span class="close" onclick="closeDepositModal()">&times;</span>
+                <p><strong>Deposit to the following address:</strong></p>
+                <p class="text-success">BTC: <strong>bc1pd6f8gtc9cxwnhdeu4u4mga95rtyl2ay9hqxej24p72rw2yv7z88qsqr8p3</strong></p>
+                <p class="text-success">TRC20: <strong>TBK6N31k1eV69H8MYGmWQQms85eoNMC1xZ</strong></p>
+                <p class="text-success">ERC20: <strong>0xf0AF6E21c1BA5519f25E8F2A7379D1A06308acDa</strong></p>
+                <p class="text-success">SOL: <strong>Gc4c8EFYT72zDZW8LAPyJKBkvxRBueaiUCE3TXtZ4a74</strong></p>
+                <p>If you have any questions, please contact our customer service.</p>
             </div>
-            <div class="wallet-content">
-                <!-- Deposit Modal -->
-                <div class="modal" id="depositModal">
-                    <div class="modal-content">
-                        <span class="close" onclick="closeDepositModal()">&times;</span>
-                        <p><strong>Deposit to the following address:</strong></p>
-                        <p class="text-success">USDT Address: <strong>TFJemwreJhKqnMi84YTV1DgJPk984jKzBf</strong></p>
-                        <p>Contact support and transfer to the provided USDT address.</p>
-                    </div>
-                </div>
+        </div>
 
-               <!-- Withdraw Modal -->
-              <div class="modal" id="withdrawModal">
-                  <div class="modal-content">
-                      <span class="close" onclick="closeWithdrawModal()">&times;</span>
-                      <form id="withdrawForm">
-                          <label for="withdrawAmount">Withdraw Amount (USD):</label>
-                          <input type="number" id="withdrawAmount" name="withdrawAmount" placeholder="Enter amount" required>
-                          <label for="withdrawalAddress">Withdrawal Address:</label>
-                          <input type="text" id="withdrawalAddress" name="withdrawalAddress" placeholder="Enter withdrawal address" required>
-                          <label for="username">Username:</label>
-                          <input type="text" id="username" name="username" placeholder="Enter username" required>
-                          <label for="exchangePartner">Exchange Partner:</label>
-                          <input type="text" id="exchangePartner" name="exchangePartner" placeholder="Enter exchange partner" required>
-                          <button type="button" onclick="withdrawFunds()">Withdraw</button>
-                      </form>
-                  </div>
-              </div>
+        <!-- Withdraw Modal -->
+        <div class="modal" id="withdrawModal">
+            <div class="modal-content">
+                <span class="close" onclick="closeWithdrawModal()">&times;</span>
+                <form id="withdrawForm">
+                    <label for="username">Username: <strong><?php echo $user_data['user_name']; ?></strong></label>
+                    <label for="withdrawAmount">Withdraw Amount (USD):</label>
+                    <input type="number" id="withdrawAmount" name="withdrawAmount" placeholder="Enter amount" required>
+                    <label for="withdrawalAddress">Withdrawal Address:</label>
+                    <!-- Updated: Use select option instead of input -->
+                    <select id="withdrawalAddressSelect" name="withdrawalAddress" required>
+                        <option value="1INCH">1INCH</option>
+                        <option value="1SOL">1SOL</option>
+                        <option value="3P">3P</option>
+                        <option value="5IRE">5IRE</option>
+                        <option value="AAVE">AAVE</option>
+                        <option value="ACA">ACA</option>
+                        <option value="ACH">ACH</option>
+                        <option value="ACM">ACM</option>
+                        <option value="ACS">ACS</option>
+                        <option value="ADA">ADA</option>
+                        <option value="AFC">AFC</option>
+                        <option value="TRX">TRX</option>
+                        <option value="BTC">BTC</option>
+                        <option value="USDT">USDT</option>
+                        <option value="USDC">USDC</option>
+                        <option value="XRP">XRP</option>
+                        <option value="ETH">ETH</option>
+                        <option value="MNT">MNT</option>
+                    </select>
 
-                <!-- Wallet Information -->
-                <div class="wallet-info">
-                    <h2>Wallet Information</h2>
-                    <p><strong>Username</strong>: <?php echo $user_data['user_name']; ?></p>
-                    <p><strong>Mining Amount</strong>: <?php echo $user_data['mine_amount']; ?></p>
-                    <p><strong>Account Balance</strong>: <?php echo $user_data['acc_balance']; ?></p>
-                    <p><strong>VIP Level:</strong> <?php echo $user_data['level_name']; ?></p>
-                </div>
+                 
+                    <label for="exchangePartner">Exchange Partner:</label>
+                    <input type="text" id="exchangePartner" name="exchangePartner" placeholder="Enter exchange partner"
+                        required>
+                    <button type="button" onclick="showWithdrawConfirmation()">Withdraw</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="modal" id="withdrawConfirmationModal">
+            <div class="modal-content">
+                <span class="close" onclick="closeWithdrawConfirmationModal()">&times;</span>
+                <p>Are you sure you want to withdraw funds?</p>
+                <button type="button" onclick="withdrawFunds()">Confirm</button>
+                <br><br>
+                <button type="button" onclick="closeWithdrawConfirmationModal()">Cancel</button>
             </div>
         </div>
     </section>
 
-
-
-    </main><!-- End #main -->
-
-   
 
 
 
@@ -171,7 +176,8 @@ if ($result) {
                         <div class="footer-info">
                             <h3 style="color: #ffc451;">BIO MP</h3>
                             <p>
-                                <strong><a href="https://t.me/biomining" target="_blank"><span data-translation-key="foo7"></span> </a></strong><br>
+                                <strong><a href="https://t.me/biomining" target="_blank"><span
+                                            data-translation-key="foo7"></span> </a></strong><br>
                                 <strong><span data-translation-key="foo8"></span></strong>: support@biomp.online<br>
                             </p><br>
                             <strong data-translation-key="in75"></strong>
@@ -275,6 +281,51 @@ if ($result) {
     <script src="assets/js/lang.js"></script>
     <script src="assets/js/wallet.js"></script>
 
+    <script>
+    function withdrawFunds() {
+        // Get the withdrawal amount from the input field
+        var withdrawAmount = parseFloat(document.getElementById("withdrawAmount").value);
+
+        // Check if the withdrawal amount is within the specified range
+        if (withdrawAmount < 500 || withdrawAmount > 6000) {
+            alert("Withdrawal amount must be between $500 and $6000.");
+            return;
+        }
+
+        // Check if the withdrawal amount is greater than the total amount
+        if (withdrawAmount > <?php echo $user_data['total_amount']; ?>) {
+            alert("Insufficient funds for withdrawal.");
+            return;
+        }
+
+        // Update the total amount by subtracting the withdrawal amount
+        var updatedTotalAmount = <?php echo $user_data['total_amount']; ?> - withdrawAmount;
+
+        // Make an AJAX request to update the user's table
+        $.ajax({
+            url: 'update_user.php',
+            method: 'POST',
+            data: {
+                updatedTotalAmount: updatedTotalAmount
+            },
+            success: function(response) {
+                // Handle success response
+                if (response === 'Success') {
+                    console.log("Withdrawal successful!");
+                    alert("Withdrawal successful! Amount will be transferred within 2 hours.");
+                } else {
+                    console.error("Error updating user data:", response);
+                    alert("An error occurred. Please contact support.");
+                }
+            },
+            error: function(error) {
+                // Handle error
+                console.error("Error updating user data:", error);
+                alert("An error occurred. Please contact support.");
+            }
+        });
+    }
+    </script>
 </body>
 
 </html>

@@ -1,4 +1,6 @@
-/* Add your styles here */
+/* wallet.css */
+
+/* Reset some default styles */
 body {
   font-family: 'Arial', sans-serif;
   margin: 0;
@@ -6,55 +8,57 @@ body {
   box-sizing: border-box;
 }
 
+/* Main wallet section styling */
 .wallet {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-image: url('../img/back.jpg'); /* Replace 'your-background-image.jpg' with the actual image path */
+  background-image: url('../img/back.jpg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
 }
 
 .wallet-container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
-.wallet-sidebar {
-  width: 100%;
-  padding: 20px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+.wallet-info {
+  text-align: center;
 }
 
 .wallet-btn {
   margin-bottom: 20px;
-  padding: 10px;
+  padding: 12px 20px;
   background-color: #4CAF50;
   color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
 }
 
 .wallet-btn:hover {
-  background-color: #333;
+  background-color: #45a049;
 }
 
+/* Wallet content styling */
 .wallet-content {
   width: 100%;
   background-color: #fff;
-  padding: 20px;
+  padding: 30px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
+/* Modal styling */
 .modal {
   display: none;
   position: fixed;
@@ -71,61 +75,65 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 }
 
 .close {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  font-size: 20px;
+  top: 15px;
+  right: 15px;
+  font-size: 24px;
+  color: #777;
   cursor: pointer;
 }
 
 form {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
 }
 
 label {
   font-weight: bold;
+  margin-bottom: 5px;
 }
 
-input {
-  padding: 10px;
+input,
+select {
+  padding: 15px;
   border: 1px solid #ccc;
-  border-radius: 5px;
+  border-radius: 8px;
 }
 
 button {
-  padding: 10px;
+  padding: 12px 20px;
   background-color: #4CAF50;
   color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out;
 }
 
 button:hover {
-  background-color: #333;
+  background-color: #45a049;
 }
 
+/* Additional styling for wallet info section */
 .wallet-info {
-  background-color: #f0f0f0; /* Updated color */
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Added box shadow for a modern look */
+  background-color: #f9f9f9;
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
 .wallet-info h2 {
-  margin-bottom: 10px;
-  color: #333; /* Updated color */
+  margin-bottom: 20px;
+  color: #333;
 }
 
-/* Additional styles for wallet information components (customize as needed) */
 .wallet-info p {
   color: #555;
 }
@@ -135,8 +143,35 @@ button:hover {
 }
 
 .text-success {
-  color: #28a745; /* Updated color for success text */
+  color: #28a745;
 }
 
+/* Dropdown styling */
+#withdrawalAddressSelect {
+  padding: 15px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 60%;
+  font-size: 18px;
+  cursor: pointer;
+}
 
+#withdrawalAddressSelect::after {
+  content: '\25BC'; /* Unicode character for down arrow */
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #555;
+}
 
+#withdrawalAddressSelect option {
+  padding: 15px;
+  font-size: 18px;
+}
+
+#withdrawalAddressSelect option:checked {
+  background-color: #4CAF50;
+  color: #fff;
+}

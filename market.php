@@ -112,10 +112,10 @@ $user_data = check_login($con);
                         <img src="./assets/img/market/coin-1.svg" width="24" height="24" alt="bitcoin logo">
                         <a href="#" class="card-title">Bitcoin <span class="span">BTC/USD</span></a>
                     </div>
-                    <data class="card-value" value="46168.95">USD 56,623.54</data>
+                    <data class="card-value" value="46168.95">USD 66,623.54</data>
                     <div class="card-analytics">
-                        <data class="current-price" value="36641.20">23,641.20</data>
-                        <div class="badge green">+0.79%</div>
+                        <data class="current-price" value="36641.20">43,641.20</data>
+                        <div class="badge green">+1.79%</div>
                     </div>
                 </li>
 
@@ -125,10 +125,10 @@ $user_data = check_login($con);
                         <img src="./assets/img/market/coin-2.svg" width="24" height="24" alt="ethereum logo">
                         <a href="#" class="card-title">Ethereum <span class="span">ETH/USD</span></a>
                     </div>
-                    <data class="card-value" value="3480.04">USD 2,954.88</data>
+                    <data class="card-value" value="3480.04">USD 3,788.21</data>
                     <div class="card-analytics">
-                        <data class="current-price" value="36641.20">46,641.20</data>
-                        <div class="badge green">+10.55%</div>
+                        <data class="current-price" value="36641.20">56,641.20</data>
+                        <div class="badge green">+2.03%</div>
                     </div>
                 </li>
 
@@ -140,8 +140,8 @@ $user_data = check_login($con);
                     </div>
                     <data class="card-value" value="1.00">USD 1.00</data>
                     <div class="card-analytics">
-                        <data class="current-price" value="36641.20">36,121.20</data>
-                        <div class="badge green">+0.01%</div>
+                        <data class="current-price" value="36641.20">46,121.20</data>
+                        <div class="badge green">+1.01%</div>
                     </div>
                 </li>
 
@@ -151,10 +151,10 @@ $user_data = check_login($con);
                         <img src="./assets/img/market/coin-4.svg" width="24" height="24" alt="bitcoin logo">
                         <a href="#" class="card-title">BNB <span class="span">BNB/USD</span></a>
                     </div>
-                    <data class="card-value" value="443.56">USD 443.56</data>
+                    <data class="card-value" value="443.56">USD 406.56</data>
                     <div class="card-analytics">
                         <data class="current-price" value="36641.20">36,641.20</data>
-                        <div class="badge green">+1.24%</div>
+                        <div class="badge red">-4.24%</div>
                     </div>
 
                 </li>
@@ -188,9 +188,9 @@ $user_data = check_login($con);
                         <td class="table-data">
                             <span class="coin-name" style="text-decoration:none;">Bitcoin | BTC</span>
                         </td>
-                        <td class="table-data">$61,849.97</td>
-                        <td class="table-data">$1.22T</td>
-                        <td class="table-data green" style="color:white;">+0.41%</td>
+                        <td class="table-data">$65,994.27</td>
+                        <td class="table-data">$1.42T</td>
+                        <td class="table-data red" style="color:white;">-1.86%</td>
                         <td class="table-data">14.7M</td>
                     </tr>
 
@@ -203,15 +203,15 @@ $user_data = check_login($con);
                         <td class="table-data">
                             <span class="coin-name">Ethereum | ETH</span>
                         </td>
-                        <td class="table-data">$3,436.88</td>
-                        <td class="table-data">$412.89B</td>
-                        <td class="table-data green" style="color:white;">+0.50%</td>
+                        <td class="table-data">$3,774.24</td>
+                        <td class="table-data">$454.26B</td>
+                        <td class="table-data green" style="color:white;">+1.27%</td>
                         <td class="table-data">60.07M</td>
                     </tr>
 
                     <tr class="table-row">
                         <td class="table-data">
-                            <a href="bitcoin.php" class="btn btn-mine" style="color:#4154f1;">Mining</a>
+                            <a href="tether.php" class="btn btn-mine" style="color:#4154f1;">Mining</a>
                             <img src="./assets/img/market/coin-3.svg" width="20" height="20" alt="Bitcoin logo"
                                 class="img">
                         </td>
@@ -219,119 +219,119 @@ $user_data = check_login($con);
                             <span class="coin-name">Tether | USDT/USD</span>
                         </td>
                         <td class="table-data">$1.00</td>
-                        <td class="table-data">$99.24B</td>
-                        <td class="table-data green" style="color:white;">+0.5%</td>
-                        <td class="table-data">33.7M</td>
+                        <td class="table-data">$100.24B</td>
+                        <td class="table-data green" style="color:white;">+1.01%</td>
+                        <td class="table-data">23.7M</td>
                     </tr>
 
                     <tr class="table-row">
                         <td class="table-data">
-                            <a href="bitcoin.php" class="btn btn-mine" style="color:#4154f1;">Mining</a>
+                            <a href="bnb.php" class="btn btn-mine" style="color:#4154f1;">Mining</a>
                             <img src="./assets/img/market/coin-4.svg" width="20" height="20" alt="Bitcoin logo"
                                 class="img">
                         </td>
                         <td class="table-data">
                             <span class="coin-name">BNB | BNB/USD</span>
                         </td>
-                        <td class="table-data">$416.06</td>
-                        <td class="table-data">$64.01B</td>
-                        <td class="table-data green" style="color:white;">+1.25%</td>
+                        <td class="table-data">$404.95</td>
+                        <td class="table-data">$67.01B</td>
+                        <td class="table-data red" style="color:white;">-4.45%</td>
                         <td class="table-data">23.1M</td>
                     </tr>
 
                     <tr class="table-row">
                         <td class="table-data">
-                            <a href="bitcoin.php" class="btn btn-mine" style="color:#4154f1;">Mining</a>
+                            <a href="sol.php" class="btn btn-mine" style="color:#4154f1;">Mining</a>
                             <img src="./assets/img/market/coin-5.svg" width="20" height="20" alt="Bitcoin logo"
                                 class="img">
                         </td>
                         <td class="table-data">
                             <span class="coin-name">Solana | SOL</span>
                         </td>
-                        <td class="table-data">$128.35</td>
-                        <td class="table-data">$56.84B</td>
-                        <td class="table-data red" style="color:white;">-0.92%</td>
+                        <td class="table-data">$131.54</td>
+                        <td class="table-data">$58.84B</td>
+                        <td class="table-data red" style="color:white;">-0.66%</td>
                         <td class="table-data">21.1M</td>
                     </tr>
 
                     <tr class="table-row">
                         <td class="table-data">
-                            <a href="bitcoin.php" class="btn btn-mine" style="color:#4154f1;">Mining</a>
+                            <a href="xrp.php" class="btn btn-mine" style="color:#4154f1;">Mining</a>
                             <img src="./assets/img/market/coin-6.svg" width="20" height="20" alt="Bitcoin logo"
                                 class="img">
                         </td>
                         <td class="table-data">
                             <span class="coin-name">XRP</span>
                         </td>
-                        <td class="table-data">$0.62731909</td>
-                        <td class="table-data">$34.29B</td>
-                        <td class="table-data red" style="color:white;">-3.14%</td>
+                        <td class="table-data">$0.603</td>
+                        <td class="table-data">$35.29B</td>
+                        <td class="table-data red" style="color:white;">-6.21%</td>
                         <td class="table-data">38.7M</td>
                     </tr>
 
                     <tr class="table-row">
                         <td class="table-data">
-                            <a href="bitcoin.php" class="btn btn-mine" style="color:#4154f1;">Mining</a>
+                            <a href="ada.php" class="btn btn-mine" style="color:#4154f1;">Mining</a>
                             <img src="./assets/img/market/coin-7.svg" width="20" height="20" alt="Bitcoin logo"
                                 class="img">
                         </td>
                         <td class="table-data">
                             <span class="coin-name">Cardano | ADA</span>
                         </td>
-                        <td class="table-data">$0.73240862</td>
-                        <td class="table-data">$25.78B</td>
-                        <td class="table-data red" style="color:white;">-1.51%</td>
+                        <td class="table-data">$0.721</td>
+                        <td class="table-data">$24.78B</td>
+                        <td class="table-data red" style="color:white;">-6.43%</td>
                         <td class="table-data">30M</td>
                     </tr>
 
                     <tr class="table-row">
                         <td class="table-data">
-                            <a href="bitcoin.php" class="btn btn-mine" style="color:#4154f1;">Mining</a>
+                            <a href="avax.php" class="btn btn-mine" style="color:#4154f1;">Mining</a>
                             <img src="./assets/img/market/coin-8.svg" width="20" height="20" alt="Bitcoin logo"
                                 class="img">
                         </td>
                         <td class="table-data">
                             <span class="coin-name">Avalanche | AVAX</span>
                         </td>
-                        <td class="table-data">$42.86</td>
+                        <td class="table-data">$38.56</td>
                         <td class="table-data">$16B</td>
-                        <td class="table-data green" style="color:white;">+4.55%</td>
+                        <td class="table-data red" style="color:white;">-3.55%</td>
                         <td class="table-data">24M</td>
                     </tr>
 
                     <tr class="table-row">
                         <td class="table-data">
-                            <a href="bitcoin.php" class="btn btn-mine" style="color:#4154f1;">Mining</a>
+                            <a href="coti.php" class="btn btn-mine" style="color:#4154f1;">Mining</a>
                             <img src="./assets/img/market/coin-9.webp" width="20" height="20" alt="Bitcoin logo"
                                 class="img">
                         </td>
                         <td class="table-data">
                             <span class="coin-name">COTI</span>
                         </td>
-                        <td class="table-data">$0.2094</td>
-                        <td class="table-data">$31M</td>
-                        <td class="table-data green" style="color:white;">+0.58%</td>
+                        <td class="table-data">$0.1835</td>
+                        <td class="table-data">$32M</td>
+                        <td class="table-data red" style="color:white;">-0.58%</td>
                         <td class="table-data">5M</td>
                     </tr>
 
                     <tr class="table-row">
                         <td class="table-data">
-                            <a href="bitcoin.php" class="btn btn-mine" style="color:#4154f1;">Mining</a>
+                            <a href="near.php" class="btn btn-mine" style="color:#4154f1;">Mining</a>
                             <img src="./assets/img/market/coin-10.png" width="20" height="20" alt="Bitcoin logo"
                                 class="img">
                         </td>
                         <td class="table-data">
                             <span class="coin-name">NEAR</span>
                         </td>
-                        <td class="table-data">$4.25</td>
+                        <td class="table-data">$4.34</td>
                         <td class="table-data">$44.62B</td>
-                        <td class="table-data green" style="color:white;">+2.15%</td>
-                        <td class="table-data">70.7M</td>
+                        <td class="table-data red" style="color:white;">-1.15%</td>
+                        <td class="table-data">30.7M</td>
                     </tr>
 
                     <tr class="table-row">
                         <td class="table-data">
-                            <a href="bitcoin.php" class="btn btn-mine" style="color:#4154f1;">Mining</a>
+                            <a href="cosmos.php" class="btn btn-mine" style="color:#4154f1;">Mining</a>
                             <img src="./assets/img/market/coin-11.png" width="20" height="20" alt="Bitcoin logo"
                                 class="img">
                         </td>
@@ -346,7 +346,7 @@ $user_data = check_login($con);
 
                     <tr class="table-row">
                         <td class="table-data">
-                            <a href="bitcoin.php" class="btn btn-mine" style="color:#4154f1;">Mining</a>
+                            <a href="1000pepe.php" class="btn btn-mine" style="color:#4154f1;">Mining</a>
                             <img src="./assets/img/market/coin-12.webp" width="20" height="20" alt="Bitcoin logo"
                                 class="img">
                         </td>
@@ -361,7 +361,7 @@ $user_data = check_login($con);
 
                     <tr class="table-row">
                         <td class="table-data">
-                            <a href="bitcoin.php" class="btn btn-mine" style="color:#4154f1;">Mining</a>
+                            <a href="alt.php" class="btn btn-mine" style="color:#4154f1;">Mining</a>
                             <img src="./assets/img/market/coin-16.png" width="20" height="20" alt="Bitcoin logo"
                                 class="img">
                         </td>
@@ -376,7 +376,7 @@ $user_data = check_login($con);
 
                     <tr class="table-row">
                         <td class="table-data">
-                            <a href="bitcoin.php" class="btn btn-mine" style="color:#4154f1;">Mining</a>
+                            <a href="ondo.php" class="btn btn-mine" style="color:#4154f1;">Mining</a>
                             <img src="./assets/img/market/coin-14.webp" width="20" height="20" alt="Bitcoin logo"
                                 class="img">
                         </td>
@@ -391,7 +391,7 @@ $user_data = check_login($con);
 
                     <tr class="table-row">
                         <td class="table-data">
-                            <a href="bitcoin.php" class="btn btn-mine" style="color:#4154f1;">Mining</a>
+                            <a href="sqt.php" class="btn btn-mine" style="color:#4154f1;">Mining</a>
                             <img src="./assets/img/market/coin-13.png" width="20" height="20" alt="Bitcoin logo"
                                 class="img">
                         </td>
