@@ -1,0 +1,45 @@
+/* Custom CSS for Terms and Conditions */
+
+.terms-and-conditions {
+    background-color: #f9f9f9;
+    padding: 50px 0;
+  }
+  
+  .terms-and-conditions h5 {
+    color: #4154f1;
+    font-size: 28px;
+    margin-bottom: 15px;
+  }
+  
+  .terms-and-conditions p {
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 15px;
+  }
+  
+  .terms-and-conditions ol {
+    list-style-type: decimal;
+    margin-left: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .terms-and-conditions li {
+    margin-bottom: 10px;
+  }
+  
+  .terms-and-conditions a {
+    color: #4154f1;
+    text-decoration: underline;
+  }
+  
+  /* Responsive Styling */
+  @media screen and (max-width: 768px) {
+    .terms-and-conditions {
+      padding: 30px 0;
+    }
+  
+    .terms-and-conditions h5 {
+      font-size: 24px;
+    }
+  }
+  

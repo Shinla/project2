@@ -1,0 +1,86 @@
+.bitcoin-details {
+    background-image: url('../images/back.jpg');
+    background-position: center;
+    background-size: cover;
+    padding: 80px 0;
+    color: #fff; /* Set text color to white for better contrast */
+}
+
+.btn-buy {
+    background-color: #3498db;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-buy:hover {
+    background-color: #3498db;
+    color: #000;
+}
+#miningPackage {
+    padding: 10px;
+    font-size: 16px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #dee2e6;
+}
+
+#successAlert {
+    margin-top: 20px;
+    color: #28a745;
+    font-size: 18px;
+}
+
+/* Bitcoin Information */
+.portfolio-info {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.portfolio-info h3 {
+    color: #343a40;
+}
+
+.portfolio-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.portfolio-info li {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #6c757d;
+}
+
+.portfolio-info li strong {
+    color: #343a40;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+    #bitcoin-details {
+        padding: 60px 0;
+    }
+
+    .col-lg-8, .col-lg-4 {
+        margin-bottom: 20px;
+    }
+
+    .portfolio-info {
+        margin-top: 20px;
+    }
+}

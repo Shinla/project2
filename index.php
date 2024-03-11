@@ -1,682 +1,1063 @@
-<?php 
-session_start();
+<?php  
 
-include("./config/conn.php");
-include("./config/function.php");
+include("./config/functions.php");
+check_login();
 
-$user_data = check_login($con);
 
 ?>
-  
-
 
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bio MP | Home</title>
 
-    <title>Bio MP</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
+  <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
 
-    <!-- Favicons -->
-    <link href="assets/img/favicon.png" rel="icon">
-    <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <!-- 
+    - custom css link
+  -->
+  <link rel="stylesheet" href="./assets/css/style.css">
 
-    <!-- Google Fonts -->
-    <link
-        href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-        rel="stylesheet">
-
-    <!-- Vendor CSS Files -->
-    <link href="assets/vendor/aos/aos.css" rel="stylesheet">
-    <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-    <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-    <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-    <!-- Template Main CSS File -->
-    <link href="assets/css/style.css" rel="stylesheet">
-
+  <!-- 
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-    <!-- ======= Header ======= -->
-    <header id="header" class="fixed-top header-inner-pages">
-        <div class="container d-flex align-items-center justify-content-lg-between">
-
-            <h1 class="logo me-auto me-lg-0"><a href="index.php" style="color:#ffd584;">Bio MP</a></h1>
-
-            <nav id="navbar" class="navbar order-last order-lg-0">
-                <ul>
-                    <li><a class="nav-link scrollto " href="index.php" data-translation-key="home">Home</a></li>
-                    <li><a class="nav-link scrollto" href="index.php#about" data-translation-key="aboutUs">About</a>
-                    </li>
-                    <li class="dropdown"><a href="#"><span data-translation-key="services">Services</span> <i
-                                class="bi bi-chevron-down"></i></a>
-                        <ul>
-                            <li><a href="market.php" data-translation-key="mar">Market</a></li>
-                            <li><a href="#pricing" data-translation-key="pak">Package</a></li>
-                            <li><a href="wallet.php" data-translation-key="wallet">Wallet</a></li>  
-                        </ul>
-                    </li>
-                    <li><a href="security.php" data-translation-key="sec">Security</a></li>
-                    <li class="dropdown">
-                        <a href="#"><span data-translation-key="Language"></span><i class="bi bi-chevron-down"></i></a>
-                        <ul class="dropdown-menu-left">
-                            <li><a href="#" onclick="changeLanguage('en')">English</a></li>
-                            <li><a href="#" onclick="changeLanguage('zh')">中文</a></li>
-                        </ul>
-                    </li>
-
-                
-
-
-                    <!-- Logout Icon with Link -->
-                    <li><a class="nav-link" href="logout.php"><i class="bi bi-box-arrow-right"></i></a></li>
-                </ul>
-                <i class="bi bi-list mobile-nav-toggle"></i>
-            </nav><!-- .navbar -->
-
-        </div>
-    </header><!-- End Header -->
-
-    <!-- ======= Hero Section ======= -->
-    <section id="hero" class="d-flex align-items-center justify-content-center">
-        <div class="container" data-aos="fade-up">
-
-            <div class="row justify-content-center" data-aos="fade-up" data-aos-delay="150">
-                <div class="col-xl-6 col-lg-8">
-                    <h1 data-aos="fade-up" data-translation-key="in1"></h1>
-                    <h2 data-aos="fade-up" data-aos-delay="400" data-translation-key="in2"></h2>
-                </div>
-            </div>
-
-            <div class="row gy-4 mt-5 justify-content-center" data-aos="zoom-in" data-aos-delay="250">
-                <div class="col-xl-2 col-md-4">
-                    <div class="icon-box">
-                        <i class="ri-store-line"></i>
-                        <h3 data-translation-key="in10" style="color:#fff;">Technology and Innovation</h3>
-                    </div>
-                </div>
-                <div class="col-xl-2 col-md-4">
-                    <div class="icon-box">
-                        <i class="ri-bar-chart-box-line"></i>
-                        <h3 data-translation-key="in11" style="color:#fff;">Safety Standards</h3>
-                    </div>
-                </div>
-                <div class="col-xl-2 col-md-4">
-                    <div class="icon-box">
-                        <i class="ri-calendar-todo-line"></i>
-                        <h3 data-translation-key="in12" style="color:#fff;">Security Measures</h3>
-                    </div>
-                </div>
-                <div class="col-xl-2 col-md-4">
-                    <div class="icon-box">
-                        <i class="ri-paint-brush-line"></i>
-                        <h3 data-translation-key="in13" style="color:#fff;">Wallet Security</h3>
-                    </div>
-                </div>
-                <div class="col-xl-2 col-md-4">
-                    <div class="icon-box">
-                        <i class="ri-database-2-line"></i>
-                        <h3 data-translation-key="in14" style="color:#fff;">Community Involvement</h3>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-    </section><!-- End Hero -->
-
-    <main id="main">
-
-        <!-- ======= About Section ======= -->
-        <section id="about" class="about" style="background-color:#222;">
-            <div class="container" data-aos="fade-up">
-
-                <div class="row">
-                    <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left" data-aos-delay="100">
-                        <img src="assets/img/about.jpg" class="img-fluid" alt="">
-                    </div>
-                    <div class="col-lg-6 pt-4 pt-lg-0 order-2 order-lg-1 content" data-aos="fade-right"
-                        data-aos-delay="100">
-                        <h1 data-translation-key="ab5" style="color:#ffd584;">Who We Are</h1>
-                        <p data-translation-key="ab6" style="color:white;"></p>
-                        <p data-translation-key="ab7" style="color:white;"></p>
-                        <ul>
-                            <li><i class="bi bi-check"></i> <span data-translation-key="ab8" style="color:white;"></span></li>
-                            <li><i class="bi bi-check"></i> <span data-translation-key="ab9" style="color:white;"></span></li>
-                            <li><i class="bi bi-check"></i> <span data-translation-key="ab10" style="color:white;"></span></li>
-                        </ul>
-                        <p><span data-translation-key="ab11" style="color:white;"></span></p>
-                    </div>
-                </div>
-
-            </div>
-        </section><!-- End About Section -->
-
-        <!-- ======= Clients Section ======= -->
-        <section id="clients" class="clients">
-
-            <div class="container" data-aos="fade-up">
-
-                <header class="section-header">
-                    <h2 data-translation-key="in73" style="color:#ffd584;">Verify by Professional institution
-                        verification</h2>
-                </header>
-
-                <div class="clients-slider swiper">
-                    <div class="swiper-wrapper align-items-center">
-                        <div class="swiper-slide"><img src="assets/img/clients/galaxy.jpg" class="img-fluid" alt="">
-                        </div>
-                        <div class="swiper-slide"><img src="assets/img/clients/bi.jfif" class="img-fluid" alt=""></div>
-                        <div class="swiper-slide"><img src="assets/img/clients/client-3.png" class="img-fluid" alt="">
-                        </div>
-                        <div class="swiper-slide"><img src="assets/img/clients/client-4.png" class="img-fluid" alt="">
-                        </div>
-                        <div class="swiper-slide"><img src="assets/img/clients/ma.jfif" class="img-fluid" alt=""></div>
-                        <div class="swiper-slide"><img src="assets/img/clients/sq.jpg" class="img-fluid" alt=""></div>
-                        <div class="swiper-slide"><img src="assets/img/clients/client-7.png" class="img-fluid" alt="">
-                        </div>
-                        <div class="swiper-slide"><img src="assets/img/clients/by.png" class="img-fluid" alt=""></div>
-                        <div class="swiper-slide"><img src="assets/img/clients/bina.png" class="img-fluid" alt=""></div>
-                    </div>
-                    <div class="swiper-pagination"></div>
-                </div>
-            </div>
-
-        </section><!-- End Clients Section -->
-
-        <!-- ======= Pricing Section ======= -->
-        <section id="pricing" class="pricing" style="background-color:#222;">
-
-            <div class="container" data-aos="fade-up">
-
-                <header class="section-header">
-                    <h3 data-translation-key="in32" style="color:#ffd584;">Check out our Packages</h3>
-                </header>
-
-                <div class="row gy-4" data-aos="fade-left">
-
-                    <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="100">
-                        <div class="box">
-                            <h3 style="color: #07d5c0;" data-translation-key="in33">Bronze</h3>
-                            <div class="price"><sup>$</sup>300<span> USD</span></div>
-                            <img src="assets/img/pricing-free.png" class="img-fluid" alt="">
-                            <ul>
-                                <li><strong style="color: #07d5c0;"><span data-translation-key="in34"></span>:
-                                        0.7%</strong></li>
-                                <li><strong style="color: #07d5c0;"><span data-translation-key="in35"></span>:
-                                        8<span data-translation-key="hour"></span></strong></li>
-                            </ul>
-                            <a href="wallet.php" class="btn-buy" data-translation-key="in41">Buy Now</a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="200">
-                        <div class="box">
-                            <h3 style="color: #65c600;" data-translation-key="in31">Silver</h3>
-                            <div class="price"><sup>$</sup>1000<span> USD</span></div>
-                            <img src="assets/img/pricing-starter.png" class="img-fluid" alt="">
-                            <ul>
-                                <li><strong style="color: #65c600;"><span data-translation-key="in34"></span>:
-                                        1.12%</strong></li>
-                                <li style="color: #65c600;"><strong><span data-translation-key="in35"></span>:
-                                        6<span data-translation-key="hour"></span></strong></li>
-                            </ul>
-                            <a href="wallet.php" class="btn-buy" data-translation-key="in41">Buy Now</a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="300">
-                        <div class="box">
-                            <h3 style="color: #ff901c;" data-translation-key="in37">Gold</h3>
-                            <div class="price"><sup>$</sup>1500<span> USD</span></div>
-                            <img src="assets/img/pricing-business.png" class="img-fluid" alt="">
-                            <ul>
-                                <li><strong style="color: #ff901c;"><span data-translation-key="in34"></span>:
-                                        1.57%</strong></li>
-                                <li><strong style="color: #ff901c;"><span data-translation-key="in35"></span>:
-                                        2<span data-translation-key="hour"></span></strong></li>
-                            </ul>
-                            <a href="wallet.php" class="btn-buy" data-translation-key="in41">Buy Now</a>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6" data-aos="zoom-in" data-aos-delay="400">
-                        <div class="box">
-                            <h3 style="color: #ff0071;" data-translation-key="in38">Platinum </h3>
-                            <div class="price"><sup>$</sup>5000<span> USD</span></div>
-                            <img src="assets/img/pricing-ultimate.png" class="img-fluid" alt="">
-                            <ul>
-                                <li><strong style="color: #ff0071;"><span data-translation-key="in34"></span>:
-                                        3%</strong></li>
-                                <li><strong style="color: #ff0071;"><span data-translation-key="in35"></span>:
-                                        1<span data-translation-key="hour"></span></strong></li>
-                            </ul>
-                            <a href="wallet.php" class="btn-buy" data-translation-key="in41">Buy Now</a>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section><!-- End Pricing Section -->
-
-        <!-- ======= Counts Section ======= -->
-        <section id="counts" class="counts">
-            <div class="container" data-aos="fade-up">
-
-                <div class="row no-gutters">
-                    <div class="image col-xl-5 d-flex align-items-stretch justify-content-center justify-content-lg-start"
-                        data-aos="fade-right" data-aos-delay="100"></div>
-                    <div class="col-xl-7 ps-4 ps-lg-5 pe-4 pe-lg-1 d-flex align-items-stretch" data-aos="fade-left"
-                        data-aos-delay="100">
-                        <div class="content d-flex flex-column justify-content-center">
-                            <h3 data-translation-key="ab19">Our platform in numbers</h3>
-                            <div class="row">
-                                <div class="col-md-6 d-md-flex align-items-md-stretch">
-                                    <div class="count-box">
-                                        <i class="bi bi-emoji-smile"></i>
-                                        <span data-purecounter-start="0" data-purecounter-end="8168"
-                                            data-purecounter-duration="2" class="purecounter"></span>
-                                        <p><strong data-translation-key="ab20">Number of miners</strong></p>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6 d-md-flex align-items-md-stretch">
-                                    <div class="count-box">
-                                        <i class="bi bi-journal-richtext"></i>
-                                        <span data-purecounter-start="0" data-purecounter-end="85"
-                                            data-purecounter-duration="2" class="purecounter"></span>
-                                        <p><strong data-translation-key="ab21">Countries served</strong></p>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6 d-md-flex align-items-md-stretch">
-                                    <div class="count-box">
-                                        <i class="bi bi-award"></i>
-                                        <span data-purecounter-start="0" data-purecounter-end="35"
-                                            data-purecounter-duration="4" class="purecounter"></span>
-                                        <p><strong data-translation-key="ab23">Crypto adoption</strong></p>
-                                    </div>
-                                </div>
-
-                                <div class="col-md-6 d-md-flex align-items-md-stretch">
-                                    <div class="count-box">
-                                        <i class="bi bi-clock"></i>
-                                        <span data-purecounter-start="0" data-purecounter-end="4"
-                                            data-purecounter-duration="4" class="purecounter"></span>
-                                        <p><strong data-translation-key="ab22">Years of experience</strong></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- End .content-->
-                    </div>
-                </div>
-
-            </div>
-        </section><!-- End Counts Section -->
-
-        <section id="testimonials" class="testimonials">
-
-            <div class="container" data-aos="fade-up">
-
-                <header class="section-header">
-                    <h1 data-translation-key="in53" style="color:white;"></h1>
-                    <p data-translation-key="in54"  style="color:white;"></p>
-                </header>
-
-                <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="200">
-                    <div class="swiper-wrapper">
-
-                        <div class="swiper-slide">
-                            <div class="testimonial-item">
-                                <div class="member">
-                                    <div class="member-img">
-                                        <img src="assets/img/team/me.webp" class="img-fluid" alt="" width="240px">
-                                    </div>
-                                    <div class="member-info">
-                                        <h4 data-translation-key="in55"></h4>
-                                        <p data-translation-key="in56"></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- End testimonial item -->
-
-                        <div class="swiper-slide">
-                            <div class="testimonial-item">
-                                <div class="member">
-                                    <div class="member-img">
-                                    <img src="assets/img/team/ro.png" class="img-fluid" alt="" width="240px">
-                                    </div>
-                                    <div class="member-info">
-                                        <h4 data-translation-key="in57"></h4>
-                                        <p data-translation-key="in58"></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- End testimonial item -->
-
-                        <div class="swiper-slide">
-                            <div class="testimonial-item">
-                                <div class="member">
-                                    <div class="member-img">
-                                    <img src="assets/img/team/mu.png" class="img-fluid" alt="" width="240px">
-                                    </div>
-                                    <div class="member-info">
-                                        <h4 data-translation-key="in59"> Kylian Mbappé</h4>
-                                        <p data-translation-key="in60"></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- End testimonial item -->
-
-                        <div class="swiper-slide">
-                            <div class="testimonial-item">
-                                <div class="member">
-                                    <div class="member-img">
-                                    <img src="assets/img/team/allen.png" class="img-fluid" alt="" width="240px">
-                                    </div>
-                                    <div class="member-info">
-                                        <h4 data-translation-key="in61">Allen Iverson</h4>
-                                        <p data-translation-key="in62"></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- End testimonial item -->
-
-                        <div class="swiper-slide">
-                            <div class="testimonial-item">
-                                <div class="member">
-                                    <div class="member-img">
-                                    <img src="assets/img/team/jo.png" class="img-fluid" alt="" width="240px">
-                                    </div>
-                                    <div class="member-info">
-                                        <h4 data-translation-key="in63">Michael Jordan</h4>
-                                        <p data-translation-key="in64"></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- End testimonial item -->
-
-                        <div class="swiper-slide">
-                            <div class="testimonial-item">
-                                <div class="member">
-                                    <div class="member-img">
-                                    <img src="assets/img/team/curry.png" class="img-fluid" alt="" width="240px">
-                                    </div>
-                                    <div class="member-info">
-                                        <h4 data-translation-key="in65">Stephen Curry</h4>
-                                        <p data-translation-key="in66"></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- End testimonial item -->
-
-                        <div class="swiper-slide">
-                            <div class="testimonial-item">
-                                <div class="member">
-                                    <div class="member-img">
-                                    <img src="assets/img/team/sha.png" class="img-fluid" alt="" width="240px">
-                                    </div>
-                                    <div class="member-info">
-                                        <h4 data-translation-key="in67"></h4>
-                                        <p data-translation-key="in68"></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- End testimonial item -->
-
-                        <div class="swiper-slide">
-                            <div class="testimonial-item">
-                                <div class="member">
-                                    <div class="member-img">
-                                    <img src="assets/img/team/cn1.png" class="img-fluid" alt="" width="240px">
-                                    </div>
-                                    <div class="member-info">
-                                        <h4 data-translation-key="in69">Zhang Ruoyun</h4>
-                                        <p data-translation-key="in70"></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- End testimonial item -->
-
-                        <div class="swiper-slide">
-                            <div class="testimonial-item">
-                                <div class="member">
-                                    <div class="member-img">
-                                    <img src="assets/img/team/cn2.png" class="img-fluid" alt="" width="240px">
-                                    </div>
-                                    <div class="member-info">
-                                        <h4 data-translation-key="in71">Zanilia Zhao</h4>
-                                        <p data-translation-key="in72"></p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- End testimonial item -->
-
-                    </div>
-                    <div class="swiper-pagination"></div>
-                </div>
-
-            </div>
-
-        </section><!-- End Testimonials Section -->
-
-
-        <!-- ======= F.A.Q Section ======= -->
-        <section id="faq" class="faq">
-
-            <div class="container" data-aos="fade-up">
-
-                <header class="section-header">
-                    <p data-translation-key="in36">Frequently Asked Questions</p>
-                </header>
-
-                <div class="row">
-                    <div class="col-lg-12">
-                        <!-- F.A.Q List 1-->
-                        <div class="accordion accordion-flush" id="faqlist1">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#faq-content-1" data-translation-key="in39">
-                                        What is Bitcoin?
-                                    </button>
-                                </h2>
-                                <div id="faq-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
-                                    <div class="accordion-body" data-translation-key="in40">
-
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#faq-content-2">
-                                        <span data-translation-key="in42"></span>
-                                    </button>
-                                </h2>
-                                <div id="faq-content-2" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
-                                    <div class="accordion-body">
-                                        <span data-translation-key="in43"></span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#faq-content-3">
-                                        <span data-translation-key="in44"></span>
-                                    </button>
-                                </h2>
-                                <div id="faq-content-3" class="accordion-collapse collapse" data-bs-parent="#faqlist1">
-                                    <div class="accordion-body">
-                                        <span data-translation-key="in45"></span>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#faq2-content-1">
-                                        <span data-translation-key="in46"></span>
-                                    </button>
-                                </h2>
-                                <div id="faq2-content-1" class="accordion-collapse collapse" data-bs-parent="#faqlist2">
-                                    <div class="accordion-body">
-                                        <span data-translation-key="in47"></span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="accordion-item">
-                                <h2 class="accordion-header">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                        data-bs-target="#faq2-content-3">
-                                        <span data-translation-key="in48"></span>
-                                    </button>
-                                </h2>
-                                <div id="faq2-content-3" class="accordion-collapse collapse" data-bs-parent="#faqlist2">
-                                    <div class="accordion-body">
-                                        <span data-translation-key="in49"></span>
-                                        <ul>
-                                            <li><strong> <span data-translation-key="in50"></span>:</strong>
-                                                support@example.com</li>
-                                            <li><strong> <span data-translation-key="in51"></span>:</strong> [Your
-                                                Contact Number]</li>
-                                        </ul>
-                                        <span data-translation-key="in52"></span>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-
-
-                </div>
-
-            </div>
-
-        </section><!-- End F.A.Q Section -->
-
-
-    </main><!-- End #main -->
-
-    <!-- ======= Footer ======= -->
-    <footer id="footer">
-        <div class="footer-top">
-            <div class="container">
-                <div class="row">
-
-                    <div class="col-lg-3 col-md-6">
-                        <div class="footer-info">
-                            <h3 style="color: #ffc451;">BIO MP</h3>
-                            <p>
-                                <strong><a href="https://t.me/biomining" target="_blank"><span data-translation-key="foo7"></span> </a></strong><br>
-                                <strong><span data-translation-key="foo8"></span></strong>: support@biomp.online<br>
-                            </p><br>
-                            <strong data-translation-key="in75"></strong>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-2 col-md-6 footer-links">
-                        <h4 data-translation-key="foo1">Useful Links</h4>
-                        <ul>
-                            <li><i class="bx bx-chevron-right"></i> <a href="index.php" data-translation-key="home">Home</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="index.php#about" data-translation-key="aboutUs">About us</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="index.php#services" data-translation-key="services">Services</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="tnc.php" data-translation-key="foo2">Terms of service</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="privacy.php" data-translation-key="foo3">Privacy policy</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="col-lg-3 col-md-6 footer-links">
-                        <h4 data-translation-key="foo6">Our Services</h4>
-                        <ul>
-                            <li><i class="bx bx-chevron-right"></i> <a href="index.php#counts" data-translation-key="in8">Features</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="index.php#pricing" data-translation-key="in78">Package</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="security.php" data-translation-key="sec">Security</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="index.php#faq" data-translation-key="faq">FAQ</a></li>
-                            <li><i class="bx bx-chevron-right"></i> <a href="market.php" data-translation-key="mar">Derivatives</a></li>
-                        </ul>
-                    </div>
-
-                    <div class="col-lg-4 col-md-6 footer-newsletter">
-                        <h4 data-translation-key="foo5">Server Status</h4>
-
-                        <!-- Europe - West Server -->
-                        <div class="server-status">
-                            <div class="green-dot"></div>
-                            <div class="server-info">Europe - West</div>
-                        </div>
-
-                        <!-- USA - West Server -->
-                        <div class="server-status pt-2">
-                            <div class="green-dot"></div>
-                            <div class="server-info">USA - West</div>
-                        </div>
-
-                        <!-- Asia - East Server -->
-                        <div class="server-status pt-2">
-                            <div class="green-dot"></div>
-                            <div class="server-info">Asia - East</div>
-                        </div>
-
-                        <!-- South America - South Server -->
-                        <div class="server-status pt-2">
-                            <div class="green-dot"></div>
-                            <div class="server-info">South America - South</div>
-                        </div>
-
-                        <!-- Africa - North Server -->
-                        <div class="server-status pt-2">
-                            <div class="green-dot"></div>
-                            <div class="server-info">Africa - North</div>
-                        </div>
-                    </div>
-
-
-                </div>
-            </div>
-        </div>
-
+  <!-- 
+    - #HEADER
+  -->
+
+  <header class="header" data-header>
+    <div class="container">
+
+      <a href="#" class="logo">
+        <img src="./assets/images/logo.svg" width="32" height="32" alt="Cryptex logo">
+        Bio MP
+      </a>
+
+      <nav class="navbar" data-navbar>
+        <ul class="navbar-list">
+            <li class="navbar-item">
+              <a href="index.php" data-translation-key="home" class="navbar-link active"
+                  data-nav-link>Home</a>
+          </li>
+
+          <li class="navbar-item">
+              <a href="#about" data-translation-key="aboutUs" class="navbar-link" data-nav-link>About</a>
+          </li>
+
+          <li class="navbar-item">
+              <a href="#secure" data-translation-key="sec" class="navbar-link" data-nav-link>Safety</a>
+          </li>
+
+          <li class="navbar-item">
+              <a href="#market" data-translation-key="mar" class="navbar-link" data-nav-link>Markets</a>
+          </li>
+
+          <li class="navbar-item">
+              <a href="logout.php" data-translation-key="loge" class="navbar-link" data-nav-link>Log Out</a>
+          </li>
+
+          <li class="language-switch navbar-item">
+              <li class="dropdown">
+                  <button class="dropbtn"><strong data-translation-key="Language">Language</strong></button>
+                  <ul class="dropdown-content">
+                      <a href="#" onclick="changeLanguage('en')">English</a>
+                      <a href="#" onclick="changeLanguage('zh')">中文</a>
+                  </ul>
+              </li>
+          </li>
+
+        </ul>
+      </nav>
+
+      <button class="nav-toggle-btn" aria-label="Toggle menu" data-nav-toggler>
+        <span class="line line-1"></span>
+        <span class="line line-2"></span>
+        <span class="line line-3"></span>
+      </button>
+
+      <a href="wallet.php" class="btn btn-outline" data-translation-key="wallet">Wallet</a>
+
+    </div>
+  </header>
+
+  <section class="section announcement" aria-label="announcement" data-section>
+    <div class="container">
+  
+      <div class="announcement-content">
+        <p class="announcement-text" data-translation-key="ann">
+        
+        </p>
+      </div>
+  
+    </div>
+  </section>
+
+
+
+  <main>
+    <article>
+
+      <!-- 
+        - #HERO
+      -->
+
+      <section class="section hero" aria-label="hero" data-section>
         <div class="container">
-            <div class="copyright">
-                &copy; Copyright <strong><span>Bio Mining Pool</span></strong>. All Rights Reserved
-            </div>
+
+          <figure class="hero-banner">
+         
+          </figure>
+
+          <div class="hero-content">
+
+            <h1 class="h1 hero-title" data-translation-key="ab4"></h1>
+
+            <p class="hero-text" data-translation-key="ab3" style="color: white;"></p>
+
+            <a href="wallet.php" class="btn btn-primary" data-translation-key="sa">Get started now</a>
+
+          </div>
+
+       
+
         </div>
-    </footer><!-- End Footer -->
+      </section>
+  <!-- 
+        - #ABOUT
+      -->
 
-    <div id="preloader"></div>
-    <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
-            class="bi bi-arrow-up-short"></i></a>
+      <section class="section about" aria-label="about" data-section id="about">
+        <div class="container">
 
-    <!-- Vendor JS Files -->
-    <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
-    <script src="assets/vendor/aos/aos.js"></script>
-    <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-    <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+          <figure class="about-banner">
+            <video width="648" height="336" controls loop>
+              <source src="./assets/images/video.mp4" type="video/mp4">
+            </video>
+          </figure>
+
+          <div class="about-content">
+
+            <h2 class="h2 section-title"  data-translation-key="ab5">What Is Cryptex</h2>
+
+            <p class="section-text"  data-translation-key="ab6"></p>
+
+            <ul class="section-list">
+
+              <li class="section-item">
+                <div class="title-wrapper">
+                  <ion-icon name="checkmark-circle" aria-hidden="true"></ion-icon>
+
+                  <h3 class="h3 list-title" data-translation-key="ab15">View real-time cryptocurrency prices</h3>
+                </div>
+
+                <p class="item-text" data-translation-key="ab16">
+     
+                </p>
+              </li>
+
+              <li class="section-item">
+                <div class="title-wrapper">
+                  <ion-icon name="checkmark-circle" aria-hidden="true"></ion-icon>
+
+                  <h3 class="h3 list-title" data-translation-key="ab13">View real-time cryptocurrency prices</h3>
+                </div>
+
+                <p class="item-text" data-translation-key="ab14">
+     
+                </p>
+              </li>
+
+              
+
+            </ul>
+
+            <a href="wallet.php" class="btn btn-primary" data-translation-key="sa">Get started now</a>
+
+          </div>
+
+        </div>
+      </section>
 
 
-    <!-- Template Main JS File -->
-    <script src="assets/js/main.js"></script>
-    <script src="assets/js/lang.js"></script>
+
+
+      <!-- 
+        - #TREND
+      -->
+
+      <section class="section trend" aria-label="crypto trend" data-section>
+        <div class="container">
+
+          <div class="trend-tab">
+
+            <ul class="tab-nav">
+
+              <li>
+                <button class="tab-btn active" data-translation-key="ma1">Crypto</button>
+              </li>
+            </ul>
+
+            <ul class="tab-content">
+
+              <li>
+                <div class="trend-card">
+
+                  <div class="card-title-wrapper">
+                    <img src="./assets/images/coin-1.svg" width="24" height="24" alt="bitcoin logo">
+
+                    <a href="#" class="card-title">
+                      Bitcoin <span class="span">BTC/USD</span>
+                    </a>
+                  </div>
+
+                  <data class="card-value" value="46168.95">USD 68,244.52</data>
+
+                  <div class="card-analytics">
+                    <data class="current-price" value="36641.20">$ 1.34 trillion</data>
+
+                    <div class="badge green">+1.20%</div>
+                  </div>
+
+                </div>
+              </li>
+
+              <li>
+                <div class="trend-card active">
+
+                  <div class="card-title-wrapper">
+                    <img src="./assets/images/coin-2.svg" width="24" height="24" alt="ethereum logo">
+
+                    <a href="#" class="card-title">
+                      Ethereum <span class="span">ETH/USD</span>
+                    </a>
+                  </div>
+
+                  <data class="card-value" value="3480.04">USD 3915.32</data>
+
+                  <div class="card-analytics">
+                    <data class="current-price" value="36641.20">$202.01 billion</data>
+
+                    <div class="badge red">-0.53%</div>
+                  </div>
+
+                </div>
+              </li>
+
+              <li>
+                <div class="trend-card">
+
+                  <div class="card-title-wrapper">
+                    <img src="./assets/images/coin-3.svg" width="24" height="24" alt="tether logo">
+
+                    <a href="#" class="card-title">
+                      Tether <span class="span">USDT/USD</span>
+                    </a>
+                  </div>
+
+                  <data class="card-value" value="1.00">USD 1.00</data>
+
+                  <div class="card-analytics">
+                    <data class="current-price" value="36641.20">$ 178.15 billion</data>
+
+                    <div class="badge green">+0.07%</div>
+                  </div>
+
+                </div>
+              </li>
+
+              <li>
+                <div class="trend-card">
+
+                  <div class="card-title-wrapper">
+                    <img src="./assets/images/coin-4.svg" width="24" height="24" alt="bnb logo">
+
+                    <a href="#" class="card-title">
+                      BNB <span class="span">BNB/USD</span>
+                    </a>
+                  </div>
+
+                  <data class="card-value" value="443.56">USD 487.83</data>
+
+                  <div class="card-analytics">
+                    <data class="current-price" value="36641.20">$ 72.52 billion</data>
+
+                    <div class="badge green">+3.51%</div>
+                  </div>
+
+                </div>
+              </li>
+
+            </ul>
+
+          </div>
+
+        </div>
+      </section>
+
+
+
+
+
+      <!-- 
+        - #MARKET
+      -->
+
+      <section class="section market" aria-label="market update" data-section id="market">
+        <div class="container">
+
+          <div class="title-wrapper">
+            <h2 class="h2 section-title" data-translation-key="ma2"></h2>
+          </div>
+
+          <div class="market-tab">
+            <table class="market-table">
+
+              <thead class="table-head">
+
+                <tr class="table-row table-title">
+
+                  <th class="table-heading"></th>
+
+                  <th class="table-heading" scope="col">#</th>
+
+                  <th class="table-heading" scope="col">Name</th>
+
+                  <th class="table-heading" scope="col">Last Price</th>
+
+                  <th class="table-heading" scope="col">24h %</th>
+
+                  <th class="table-heading" scope="col">Market Cap</th>
+
+                  <th class="table-heading" scope="col">Last 7 Days</th>
+
+                  <th class="table-heading"></th>
+
+                </tr>
+
+              </thead>
+
+              <tbody class="table-body">
+
+                <tr class="table-row">
+
+                  <td class="table-data">
+                    <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
+                      <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
+                    </button>
+                  </td>
+
+                  <th class="table-data rank" scope="row">1</th>
+
+                  <td class="table-data">
+                    <div class="wrapper">
+                      <img src="./assets/images/coin-1.svg" width="20" height="20" alt="Bitcoin logo" class="img">
+
+                      <h3>
+                        <a href="#" class="coin-name">Bitcoin <span class="span">BTC</span></a>
+                      </h3>
+                    </div>
+                  </td>
+
+                  <td class="table-data last-price">$68,244.52</td>
+
+                  <td class="table-data last-update green">+1.20%</td>
+
+                  <td class="table-data market-cap">$ 1.34 trillion</td>
+
+                  <td class="table-data">
+                    <img src="./assets/images/chart-1.svg" width="100" height="40" alt="profit chart" class="chart">
+                  </td>
+
+                  <td class="table-data">
+                    <button class="btn btn-outline"><a href="btc.php">Mine</a></button>
+                  </td>
+
+                </tr>
+
+                <tr class="table-row">
+
+                  <td class="table-data">
+                    <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
+                      <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
+                    </button>
+                  </td>
+
+                  <th class="table-data rank" scope="row">2</th>
+
+                  <td class="table-data">
+                    <div class="wrapper">
+                      <img src="./assets/images/coin-2.svg" width="20" height="20" alt="Ethereum logo" class="img">
+
+                      <h3>
+                        <a href="#" class="coin-name">Ethereum <span class="span">ETH</span></a>
+                      </h3>
+                    </div>
+                  </td>
+
+                  <td class="table-data last-price">$3915.32</td>
+
+                  <td class="table-data last-update red">-0.53%</td>
+
+                  <td class="table-data market-cap">$202.01 billion</td>
+
+                  <td class="table-data">
+                    <img src="./assets/images/chart-2.svg" width="100" height="40" alt="loss chart" class="chart">
+                  </td>
+
+                  <td class="table-data">
+                    <button class="btn btn-outline"><a href="eth.php">Mine</a></button>
+                  </td>
+
+                </tr>
+
+                <tr class="table-row">
+
+                  <td class="table-data">
+                    <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
+                      <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
+                    </button>
+                  </td>
+
+                  <th class="table-data rank" scope="row">3</th>
+
+                  <td class="table-data">
+                    <div class="wrapper">
+                      <img src="./assets/images/coin-3.svg" width="20" height="20" alt="Tether logo" class="img">
+
+                      <h3>
+                        <a href="#" class="coin-name">Tether <span class="span">USDT/USD</span></a>
+                      </h3>
+                    </div>
+                  </td>
+
+                  <td class="table-data last-price">$1.00</td>
+
+                  <td class="table-data last-update green">+0.07%</td>
+
+                  <td class="table-data market-cap">$ 178.15 billion</td>
+
+                  <td class="table-data">
+                    <img src="./assets/images/chart-1.svg" width="100" height="40" alt="profit chart" class="chart">
+                  </td>
+
+                  <td class="table-data">
+                    <button class="btn btn-outline"><a href="tether.php">Mine</a></button>
+                  </td>
+
+                </tr>
+
+                <tr class="table-row">
+
+                  <td class="table-data">
+                    <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
+                      <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
+                    </button>
+                  </td>
+
+                  <th class="table-data rank" scope="row">4</th>
+
+                  <td class="table-data">
+                    <div class="wrapper">
+                      <img src="./assets/images/coin-4.svg" width="20" height="20" alt="BNB logo" class="img">
+
+                      <h3>
+                        <a href="#" class="coin-name">BNB <span class="span">BNB/USD</span></a>
+                      </h3>
+                    </div>
+                  </td>
+
+                  <td class="table-data last-price">$487.83</td>
+
+                  <td class="table-data last-update green">+3.51%</td>
+
+                  <td class="table-data market-cap">$72.52 billion</td>
+
+                  <td class="table-data">
+                    <img src="./assets/images/chart-1.svg" width="100" height="40" alt="loss chart" class="chart">
+                  </td>
+
+                  <td class="table-data">
+                    <button class="btn btn-outline"><a href="bnb.php">Mine</a></button>
+                  </td>
+
+                </tr>
+
+                <tr class="table-row">
+
+                  <td class="table-data">
+                    <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
+                      <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
+                    </button>
+                  </td>
+
+                  <th class="table-data rank" scope="row">5</th>
+
+                  <td class="table-data">
+                    <div class="wrapper">
+                      <img src="./assets/images/coin-5.svg" width="20" height="20" alt="Solana logo" class="img">
+
+                      <h3>
+                        <a href="#" class="coin-name">Solana <span class="span">SOL</span></a>
+                      </h3>
+                    </div>
+                  </td>
+
+                  <td class="table-data last-price">$146.86</td>
+
+                  <td class="table-data last-update red">-0.55%</td>
+
+                  <td class="table-data market-cap">$ 65.07 billion</td>
+
+                  <td class="table-data">
+                    <img src="./assets/images/chart-2.svg" width="100" height="40" alt="profit chart" class="chart">
+                  </td>
+
+                  <td class="table-data">
+                    <button class="btn btn-outline"><a href="sol.php">Mine</a></button>
+                  </td>
+
+                </tr>
+
+                <tr class="table-row">
+
+                  <td class="table-data">
+                    <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
+                      <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
+                    </button>
+                  </td>
+
+                  <th class="table-data rank" scope="row">6</th>
+
+                  <td class="table-data">
+                    <div class="wrapper">
+                      <img src="./assets/images/coin-6.svg" width="20" height="20" alt="XRP logo" class="img">
+
+                      <h3>
+                        <a href="#" class="coin-name">XRP <span class="span">XRP</span></a>
+                      </h3>
+                    </div>
+                  </td>
+
+                  <td class="table-data last-price">$0.62</td>
+
+                  <td class="table-data last-update red">-0.31%</td>
+
+                  <td class="table-data market-cap">$34.08 billion</td>
+
+                  <td class="table-data">
+                    <img src="./assets/images/chart-2.svg" width="100" height="40" alt="loss chart" class="chart">
+                  </td>
+
+                  <td class="table-data">
+                    <button class="btn btn-outline"><a href="xrp.php">Mine</a></button>
+                  </td>
+
+                </tr>
+
+                <tr class="table-row">
+
+                  <td class="table-data">
+                    <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
+                      <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
+                    </button>
+                  </td>
+
+                  <th class="table-data rank" scope="row">7</th>
+
+                  <td class="table-data">
+                    <div class="wrapper">
+                      <img src="./assets/images/coin-7.svg" width="20" height="20" alt="Cardano logo" class="img">
+
+                      <h3>
+                        <a href="#" class="coin-name">Cardano <span class="span">ADA</span></a>
+                      </h3>
+                    </div>
+                  </td>
+
+                  <td class="table-data last-price">$0.73</td>
+
+                  <td class="table-data last-update red">-0.71%</td>
+
+                  <td class="table-data market-cap">$26.79 billion</td>
+
+                  <td class="table-data">
+                    <img src="./assets/images/chart-2.svg" width="100" height="40" alt="profit chart" class="chart">
+                  </td>
+
+                  <td class="table-data">
+                    <button class="btn btn-outline"><a href="ada.php">Mine</a></button>
+                  </td>
+
+                </tr>
+
+                <tr class="table-row">
+
+                  <td class="table-data">
+                    <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
+                      <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
+                    </button>
+                  </td>
+
+                  <th class="table-data rank" scope="row">8</th>
+
+                  <td class="table-data">
+                    <div class="wrapper">
+                      <img src="./assets/images/coin-8.svg" width="20" height="20" alt="Avalanche logo" class="img">
+
+                      <h3>
+                        <a href="#" class="coin-name">Avalanche <span class="span">AVAX</span></a>
+                      </h3>
+                    </div>
+                  </td>
+
+                  <td class="table-data last-price">$43.15</td>
+
+                  <td class="table-data last-update green">+1.41%</td>
+
+                  <td class="table-data market-cap">$16.27 billion</td>
+
+                  <td class="table-data">
+                    <img src="./assets/images/chart-1.svg" width="100" height="40" alt="profit chart" class="chart">
+                  </td>
+
+                  <td class="table-data">
+                    <button class="btn btn-outline"><a href="avax.php">Mine</a></button>
+                  </td>
+
+                </tr>
+
+                <tr class="table-row">
+
+                  <td class="table-data">
+                    <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
+                      <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
+                    </button>
+                  </td>
+
+                  <th class="table-data rank" scope="row">9</th>
+
+                  <td class="table-data">
+                    <div class="wrapper">
+                      <img src="./assets/images/coin-9.svg" width="20" height="20" alt="Avalanche logo" class="img">
+
+                      <h3>
+                        <a href="#" class="coin-name">Dogecoin <span class="span">DOGE</span></a>
+                      </h3>
+                    </div>
+                  </td>
+
+                  <td class="table-data last-price">$0.17</td>
+
+                  <td class="table-data last-update red">-1.48%</td>
+
+                  <td class="table-data market-cap">$23.45 billion</td>
+
+                  <td class="table-data">
+                    <img src="./assets/images/chart-1.svg" width="100" height="40" alt="profit chart" class="chart">
+                  </td>
+
+                  <td class="table-data">
+                    <button class="btn btn-outline"><a href="doge.php">Mine</a></button>
+                  </td>
+
+                </tr>
+
+                <tr class="table-row">
+
+                  <td class="table-data">
+                    <button class="add-to-fav" aria-label="Add to favourite" data-add-to-fav>
+                      <ion-icon name="star-outline" aria-hidden="true" class="icon-outline"></ion-icon>
+                      <ion-icon name="star" aria-hidden="true" class="icon-fill"></ion-icon>
+                    </button>
+                  </td>
+
+                  <th class="table-data rank" scope="row">10</th>
+
+                  <td class="table-data">
+                    <div class="wrapper">
+                      <img src="./assets/images/chain.png" width="20" height="20" alt="Avalanche logo" class="img">
+
+                      <h3>
+                        <a href="#" class="coin-name">Chainlink <span class="span">Link</span></a>
+                      </h3>
+                    </div>
+                  </td>
+
+                  <td class="table-data last-price">$20.01</td>
+
+                  <td class="table-data last-update red">-0.12%</td>
+
+                  <td class="table-data market-cap">$11.75 billion</td>
+
+                  <td class="table-data">
+                    <img src="./assets/images/chart-2.svg" width="100" height="40" alt="profit chart" class="chart">
+                  </td>
+
+                  <td class="table-data">
+                    <button class="btn btn-outline"><a href="link.php">Mine</a></button>
+                  </td>
+
+                </tr>
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+        </div>
+      </section>
+
+
+
+
+
+      <section class="section instruction" aria-label="instruction" data-section id="package">
+        <div class="container">
+      
+          <h2 class="h2 section-title" data-translation-key="in32"></h2>
+      
+          <p class="section-text" data-translation-key="wq">
+            Choose a deposit package, add funds to your wallet, start mining, and earn money.
+          </p>
+      
+          <ul class="instruction-list">
+      
+            <li>
+              <div class="instruction-card">
+      
+                <figure class="card-banner">
+                  <img src="./assets/images/300.png" width="96" height="96" loading="lazy" alt="Deposit $300"
+                    class="img">
+                </figure>
+      
+                <p class="card-subtitle" data-translation-key="in32"></p>
+      
+                <h3 class="h3 card-title"><span data-translation-key="300"></span></h3>
+      
+                <p class="card-text" style="color:white;">
+                  <span data-translation-key="in34"></span>0.7%
+                  <br>
+                  <span data-translation-key="in35"></span>1
+                </p>
+      
+              </div>
+            </li>
+      
+            <li>
+              <div class="instruction-card">
+      
+                <figure class="card-banner">
+                  <img src="./assets/images/1000.png" width="96" height="96" loading="lazy" alt="Deposit $1000"
+                    class="img">
+                </figure>
+      
+                <p class="card-subtitle" data-translation-key="in32"></p>
+      
+                <h3 class="h3 card-title"><span data-translation-key="1000"></span></h3>
+      
+                <p class="card-text" style="color:white;">
+                  <span data-translation-key="in34"></span>1.12%
+                  <br>
+                  <span data-translation-key="in35"></span>1
+                </p>
+      
+              </div>
+            </li>
+      
+            <li>
+              <div class="instruction-card">
+      
+                <figure class="card-banner">
+                  <img src="./assets/images/1500.png" width="96" height="96" loading="lazy" alt="Deposit $1500"
+                    class="img">
+                </figure>
+      
+                <p class="card-subtitle" data-translation-key="in32"></p>
+      
+                <h3 class="h3 card-title"><span data-translation-key="1500"></span></h3>
+      
+                <p class="card-text" style="color:white;">
+                  <span data-translation-key="in34"></span>1.57%
+                  <br>
+                  <span data-translation-key="in35"></span>1
+                </p>
+      
+              </div>
+            </li>
+      
+            <li>
+              <div class="instruction-card">
+      
+                <figure class="card-banner">
+                  <img src="./assets/images/5000.png" width="96" height="96" loading="lazy" alt="Deposit $5000"
+                    class="img">
+                </figure>
+      
+                <p class="card-subtitle" data-translation-key="in32"></p>
+      
+                <h3 class="h3 card-title"><span data-translation-key="5000"></span></h3>
+      
+                <p class="card-text" style="color:white;">
+                  <span data-translation-key="in34"></span>3%
+                  <br>
+                  <span data-translation-key="in35"></span>1
+                </p>
+      
+              </div>
+            </li>
+      
+          </ul>
+      
+        </div>
+      </section>
+      
+
+
+      <section class="section sec" aria-label="sec" data-section id="secure">
+        <div class="container">
+
+          <figure class="sec-banner">
+          
+          </figure>
+
+          <div class="about-content">
+
+            <h2 class="h2 section-title"><span data-translation-key="secu1"></h2>
+
+            <p class="section-text" data-translation-key="secu3">
+            </p>
+
+            <ul class="section-list">
+
+              <li class="section-item">
+                <div class="title-wrapper">
+                  <ion-icon name="checkmark-circle" aria-hidden="true"></ion-icon>
+
+                  <h3 class="h3 list-title" data-translation-key="secu8"></h3>
+                </div>
+
+                <p class="item-text" data-translation-key="secu9" style="color:white;">
+                </p>
+              </li>
+
+              <li class="section-item">
+                <div class="title-wrapper">
+                  <ion-icon name="checkmark-circle" aria-hidden="true"></ion-icon>
+
+                  <h3 class="h3 list-title" data-translation-key="secu10">View real-time cryptocurrency prices</h3>
+                </div>
+
+                <p class="item-text" data-translation-key="secu11" style="color:white;">
+                </p>
+              </li>
+
+              <li class="section-item">
+                <div class="title-wrapper">
+                  <ion-icon name="checkmark-circle" aria-hidden="true"></ion-icon>
+
+                  <h3 class="h3 list-title" data-translation-key="secu12">View real-time cryptocurrency prices</h3>
+                </div>
+
+                <p class="item-text" data-translation-key="secu13" style="color:white;">
+                </p>
+              </li>
+
+              <li class="section-item">
+                <div class="title-wrapper">
+                  <ion-icon name="checkmark-circle" aria-hidden="true"></ion-icon>
+
+                  <h3 class="h3 list-title" data-translation-key="secu29">View real-time cryptocurrency prices</h3>
+                </div>
+
+                <p class="item-text" data-translation-key="secu19"  style="color:white;">
+                </p>
+              </li>
+            </ul>
+
+            
+
+          </div>
+
+        </div>
+      </section>
+
+      
+
+
+
+
+    
+
+    </article>
+  </main>
+
+
+
+
+
+  <!-- 
+    - #FOOTER
+  -->
+
+  <footer class="footer">
+
+    <div class="footer-top" data-section>
+      <div class="container">
+
+        <div class="footer-brand">
+
+          <a href="#" class="logo">
+            <img src="./assets/images/logo.svg" width="50" height="50" alt="Cryptex logo">
+            Bio MP
+          </a>
+
+          <h2 class="footer-title" data-translation-key="ab26"> </h2>
+
+          <a href="https://t.me/biomining" class="footer-contact-link">Telegram</a>
+
+          <a href="mailto:support@biomp.online" class="footer-contact-link"><span data-translation-key="mail"></span> </a>
+
+          </div>
+
+        <ul class="footer-list">
+
+          <li>
+            <p class="footer-list-title" data-translation-key="in77"></p>
+          </li>
+
+          <li>
+            <a href="index.php" class="footer-link" data-translation-key="home"></a>
+          </li>
+
+          <li>
+            <a href="#about" class="footer-link" data-translation-key="aboutUs"></a>
+          </li>
+
+          <li>
+            <a href="#secure" class="footer-link" data-translation-key="sec"></a>
+          </li>
+
+          <li>
+            <a href="#market" class="footer-link" data-translation-key="mar"></a>
+          </li>
+
+          <li>
+            <a href="#package" class="footer-link" data-translation-key="in78"></a>
+          </li>
+
+        </ul>
+
+        <ul class="footer-list">
+
+          <li>
+            <p class="footer-list-title" data-translation-key="in76"></p>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link" data-translation-key="foo2"></a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link" data-translation-key="foo3"></a>
+          </li>
+
+          <li>
+            <a href="#" class="footer-link" data-translation-key="wallet"></a>
+          </li>
+
+        </ul>
+
+        <ul class="footer-list">
+          
+          <li>
+            <p class="footer-list-title" data-translation-key="foo5"></p>
+          </li>
+          
+          <!-- Europe - West Server -->
+          <li class="server-status">
+              <div class="green-dot"></div>
+              <div class="server-info">Europe - West</div>
+          </li>
+
+          <!-- USA - West Server -->
+          <li class="server-status pt-2">
+              <div class="green-dot"></div>
+              <div class="server-info">USA - West</div>
+          </li>
+
+          <!-- Asia - East Server -->
+          <li class="server-status pt-2">
+              <div class="green-dot"></div>
+              <div class="server-info">Asia - East</div>
+          </li>
+
+          <!-- Africa - North Server -->
+          <li class="server-status pt-2">
+              <div class="green-dot"></div>
+              <div class="server-info">Africa - North</div>
+          </li>
+        </ul> 
+
+
+
+        
+
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container">
+
+        <p class="copyright">
+          &copy; 2024 All Rights Reserved by Bio Mining Pool</a>
+        </p>
+
+       
+
+      </div>
+    </div>
+
+  </footer>
+
+
+
+
+
+  <!-- 
+    - custom js link
+  -->
+  <script src="./assets/js/script.js" defer></script>
+  <script src="./assets/js/lang.js"></script>
+
+  <!-- 
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
 </body>
 

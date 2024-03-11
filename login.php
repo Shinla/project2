@@ -113,7 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
                 <button name="register" data-translation-key="log11" class="btn btn-primary">Sign Up</button>
             </form>
         </div>
-
+                    
 
         <div class="form-container sign-in">
             <form method="post" action="">

@@ -1,11 +1,9 @@
-const container = document.getElementById('container');
-const registerBtn = document.getElementById('register');
-const loginBtn = document.getElementById('login');
-
-registerBtn.addEventListener('click', () => {
-    container.classList.add("active");
+document.getElementById('termsCheckbox').addEventListener('change', function () {
+    var checkboxAlert = document.getElementById('checkboxAlert');
+    checkboxAlert.style.display = this.checked ? 'none' : 'block';
 });
 
-loginBtn.addEventListener('click', () => {
-    container.classList.remove("active");
+document.getElementById('termsCheckbox').addEventListener('invalid', function () {
+    var checkboxAlert = document.getElementById('checkboxAlert');
+    checkboxAlert.style.display = 'block';
 });
